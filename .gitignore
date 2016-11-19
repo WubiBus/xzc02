@@ -1,11 +1,14 @@
 !.gitignore
 contrast/build/*
+contrast/src/main/gen/*
 /build/*
 /.gradle/*
 /.idea/*
 *.iml
 guideShowLib/build/*
+guideShowLib/src/main/gen/*
 gUIImageLibrary/build/*
+gUIImageLibrary/src/main/gen/*
 local.properties
 app/src/main/gen/*
 /.DS_Store
