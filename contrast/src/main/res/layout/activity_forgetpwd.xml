@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="15dip"
+        android:gravity="center_horizontal"
+        android:padding="3dp"
+        android:visibility="visible" >
+
+        <ImageView
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:contentDescription="@null"
+            android:padding="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/user_board_back" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_back"
+        android:layout_margin="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/et_loginname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#30999999"
+            android:gravity="center"
+            android:hint="您的手机号或电子邮箱"
+            android:padding="8dp"
+            android:textSize="@dimen/title_text_b" />
+
+        <TextView
+            android:id="@+id/tv_findpwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#5058FAF4"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="找回密码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_text_b" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <!-- 协议 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="*登录或注册代表您已经阅读并同意无比™用户协议"
+            android:textColor="@color/text_gray_2"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contrast by Implication"
+            android:textColor="@color/text_gray_2"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</RelativeLayout>

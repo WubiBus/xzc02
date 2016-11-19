@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android_custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp" >
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:background="@drawable/anonymous_login"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <cn.incorner.contrast.view.SweepingView
+            android:layout_width="200dip"
+            android:layout_height="200dip"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            android_custom:roundColor="@color/login_blue"
+            android_custom:roundWidth="15dip" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="登录"
+                android:textColor="#a6dada"
+                android:textSize="@dimen/textsize_large" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="0.5sp"
+                android:background="#a6dada" />
+
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="注册"
+                android:textColor="#a6dada"
+                android:textSize="@dimen/textsize_large" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <!-- 协议 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="*登录或注册代表您已经阅读并同意无比™用户协议"
+            android:textColor="@color/text_gray_2"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contrast by Implication"
+            android:textColor="@color/text_gray_2"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</RelativeLayout>

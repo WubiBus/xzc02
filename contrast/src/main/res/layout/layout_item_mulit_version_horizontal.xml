@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:gravity="center_horizontal"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_image_and_desc_container"
+        android:layout_width="325dp"
+        android:layout_height="502dp"
+        android:orientation="vertical">
+
+        <!-- 上面描述布局 -->
+        <LinearLayout
+            android:id="@+id/ll_top_desc_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <!-- 描述一 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_desc_container_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_desc_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="先看到的"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!-- 图片区域 -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="325dp">
+
+            <LinearLayout
+                android:id="@+id/ll_image_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- image1 -->
+
+                <ImageView
+                    android:id="@+id/iv_image_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@null"/>
+
+                <!-- image2 -->
+
+                <ImageView
+                    android:id="@+id/iv_image_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_compatible_image"
+                android:layout_width="match_parent"
+                android:layout_height="325dp"
+                android:contentDescription="@null"/>
+
+            <!-- mask -->
+
+            <LinearLayout
+                android:id="@+id/ll_mask_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_mask_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_mask_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- 下面描述布局 -->
+
+        <LinearLayout
+            android:id="@+id/ll_bottom_desc_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- 描述二 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_desc_container_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_desc_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="后看到的"/>
+
+                <!-- mask -->
+
+                <TextView
+                    android:id="@+id/tv_mask"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="......"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

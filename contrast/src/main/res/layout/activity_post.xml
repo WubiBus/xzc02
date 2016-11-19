@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- 标签，这个布局放在这里先在代码中添加子视图并测量高度，然后将其移动到下面的rl_tag_container中 -->
+
+    <cn.incorner.contrast.view.WrapFlowViewGroup
+        android:id="@+id/wfvg_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/sv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffffff"
+        android:fillViewport="true"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- 图片和文字描述布局 -->
+
+            <LinearLayout
+                android:id="@+id/ll_image_and_desc_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <!-- 上面描述布局 -->
+
+                <LinearLayout
+                    android:id="@+id/ll_top_desc_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:visibility="gone" />
+
+                <!-- 中间图片编辑区域 -->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp" >
+
+                    <!-- 图片 -->
+
+                    <LinearLayout
+                        android:id="@+id/ll_image_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="horizontal" >
+
+                        <!-- 图片1 -->
+
+                        <RelativeLayout
+                            android:id="@+id/rl_image_container_1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:alpha="0.9"
+                            android:background="#ff0000ff" >
+
+                            <!-- 添加 -->
+
+                            <ImageView
+                                android:id="@+id/iv_add_image_1"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layout_centerInParent="true"
+                                android:contentDescription="@null"
+                                android:src="@drawable/add" />
+
+                            <!-- 处理的图片 -->
+
+                            <cn.incorner.contrast.view.TouchImageView
+                                android:id="@+id/iv_image_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:visibility="gone" />
+
+                            <!-- 借题发挥、编辑 的图片1 -->
+
+                            <RelativeLayout
+                                android:id="@+id/rl_other_user_image_container_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone" >
+
+                                <ImageView
+                                    android:id="@+id/iv_other_user_image_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:contentDescription="@null" />
+
+                                <ImageView
+                                    android:id="@+id/iv_recreate_1"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/recreate" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <!-- 图片2 -->
+
+                        <RelativeLayout
+                            android:id="@+id/rl_image_container_2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:alpha="0.9"
+                            android:background="#ffee771a" >
+
+                            <!-- 添加 -->
+
+                            <ImageView
+                                android:id="@+id/iv_add_image_2"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layout_centerInParent="true"
+                                android:contentDescription="@null"
+                                android:src="@drawable/add" />
+
+                            <!-- 处理的图片 -->
+
+                            <cn.incorner.contrast.view.TouchImageView
+                                android:id="@+id/iv_image_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:contentDescription="@null"
+                                android:visibility="gone" />
+
+                            <!-- 借题发挥、编辑 的图片2 -->
+
+                            <RelativeLayout
+                                android:id="@+id/rl_other_user_image_container_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone" >
+
+                                <ImageView
+                                    android:id="@+id/iv_other_user_image_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:contentDescription="@null" />
+
+                                <ImageView
+                                    android:id="@+id/iv_recreate_2"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:contentDescription="@null"
+                                    android:src="@drawable/recreate" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <!-- otherUserImageContainer，为了兼容以前的数据结构 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_compatible_other_user_image_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" >
+
+                        <ImageView
+                            android:id="@+id/iv_compatible_other_user_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null" />
+
+                        <ImageView
+                            android:id="@+id/iv_compatible_recreate"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@null"
+                            android:src="@drawable/recreate" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <!-- 下面描述布局 -->
+
+                <LinearLayout
+                    android:id="@+id/ll_bottom_desc_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal" >
+
+                    <!-- 先看到的 描述 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_desc_container_1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <EditText
+                            android:id="@+id/et_desc_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ff0000ff"
+                            android:gravity="center"
+                            android:hint="添加文字"
+                            android:imeOptions="actionDone"
+                            android:inputType="textMultiLine"
+                            android:maxLength="100"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textColor="#ffffffff"
+                            android:textColorHint="#ffffffff"
+                            android:textCursorDrawable="@drawable/shape_cursor" />
+                    </RelativeLayout>
+
+                    <!-- 后看到的 描述 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_desc_container_2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <EditText
+                            android:id="@+id/et_desc_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ffee771a"
+                            android:gravity="center"
+                            android:hint="添加文字"
+                            android:imeOptions="actionDone"
+                            android:inputType="textMultiLine"
+                            android:maxLength="100"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textColor="#ffffffff"
+                            android:textColorHint="#ffffffff"
+                            android:textCursorDrawable="@drawable/shape_cursor" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 底部布局 -->
+
+            <LinearLayout
+                android:id="@+id/ll_bottom_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <!-- 话题 -->
+
+                <RelativeLayout
+                    android:id="@+id/rl_topic_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp" >
+
+                    <EditText
+                        android:id="@+id/et_topic"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:hint="#属于什么话题（可选）？"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:singleLine="false"
+                        android:textColor="#ffaaaaaa"
+                        android:textColorHint="#ffaaaaaa"
+                        android:textSize="12sp" />
+
+                    <cn.incorner.contrast.view.ReboundHorizontalScrollView
+                        android:id="@+id/hsv_selected_tag_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#ffffffff"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:visibility="gone" >
+
+                        <LinearLayout
+                            android:id="@+id/ll_selected_tag_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#ffffffff"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone" />
+                    </cn.incorner.contrast.view.ReboundHorizontalScrollView>
+                </RelativeLayout>
+
+                <!-- 标签 -->
+
+                <RelativeLayout
+                    android:id="@+id/rl_tag_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4dp"
+                    android:visibility="gone" />
+
+                <!-- 描述一 对应的输入功能布局 -->
+
+                <RelativeLayout
+                    android:id="@+id/rl_desc_function_container_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="5dp"
+                    android:visibility="gone" >
+
+                    <cn.incorner.contrast.view.WrapFlowViewGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <!-- 添加附注1 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_add_comment_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*添加附注"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 添加超链接1 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_add_href_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:id="@+id/tv_add_href_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="添加超链接"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 清空重写1 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_clear_desc_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:contentDescription="@null"
+                                android:gravity="center_vertical"
+                                android:src="@drawable/close" />
+
+                            <TextView
+                                android:id="@+id/tv_clear_desc_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="清空重写"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 18禁预警1 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_18_forbid_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:id="@+id/tv_18_forbid_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="18禁"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 用于布局换行 -->
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp" />
+
+                        <!-- 原创图片1 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_original_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:id="@+id/tv_original_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="原创图片"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 前方高能慎点1 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_high_energy_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:id="@+id/tv_high_energy_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="前方高能"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+
+
+
+                        <!-- 回答问题 -->
+                        <LinearLayout
+                            android:id="@+id/ll_answer_question"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tv_answer_question"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/answer_question"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                    </cn.incorner.contrast.view.WrapFlowViewGroup>
+                </RelativeLayout>
+
+                <!-- 描述二 对应的输入功能布局 -->
+
+                <RelativeLayout
+                    android:id="@+id/rl_desc_function_container_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="5dp"
+                    android:visibility="gone" >
+
+                    <cn.incorner.contrast.view.WrapFlowViewGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+
+
+                        <!-- 添加附注2 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_add_comment_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="*添加附注"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 需要遮挡 -->
+                        <LinearLayout
+                            android:id="@+id/ll_mark_hide_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/需要遮挡/"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 添加超链接2 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_add_href_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:id="@+id/tv_add_href_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="添加超链接"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+
+
+
+                        
+                        <!-- 用于布局换行 -->
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp" />
+
+                        <!-- 标记当前作品为原创 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_mark_original_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/原创大作/"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 原创图片2 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_original_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <TextView
+                                android:id="@+id/tv_original_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="原创图片"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <!-- 清空重写2 -->
+
+                        <LinearLayout
+                            android:id="@+id/ll_clear_desc_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:background="@drawable/shape__radius_14__stroke_gray__solid_white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp" >
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:contentDescription="@null"
+                                android:src="@drawable/close" />
+
+                            <TextView
+                                android:id="@+id/tv_clear_desc_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="清空重写"
+                                android:textColor="@color/black"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                        
+                    </cn.incorner.contrast.view.WrapFlowViewGroup>
+                </RelativeLayout>
+
+                <!-- 发布、重置、旋转等功能布局 -->
+
+                <RelativeLayout
+                    android:id="@+id/rl_function_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp" >
+
+                    <!-- 发布按钮 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_post"
+                        android:layout_width="93dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true" >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@null"
+                            android:src="@drawable/post" />
+                    </RelativeLayout>
+
+                    <!-- 删除 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_toLeftOf="@id/rl_post"
+                        android:padding="8dp" >
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@null"
+                            android:src="@drawable/delete" />
+                    </RelativeLayout>
+
+                    <!-- 返回 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:padding="8dp" >
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@null"
+                            android:src="@drawable/back" />
+                    </RelativeLayout>
+
+                    <!-- 旋转 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_rotate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/rl_post"
+                        android:padding="8dp" >
+
+                        <ImageView
+                            android:id="@+id/iv_rotate"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@null"
+                            android:src="@drawable/rotate" />
+                    </RelativeLayout>
+
+                    <!-- 变换颜色 -->
+
+                    <RelativeLayout
+                        android:id="@+id/rl_switch_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        android:padding="8dp" >
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@null"
+                            android:src="@drawable/switch_color" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 发布动画视图 -->
+
+    <cn.incorner.contrast.view.RefreshingAnimationView
+        android:id="@+id/rav_refreshing_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

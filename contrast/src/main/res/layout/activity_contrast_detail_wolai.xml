@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+    <!-- 导航栏 -->
+
+    <LinearLayout
+        android:id="@+id/ll_nav_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="16dp">
+
+        <!-- 返回 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/mulit_iv_back"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@null"
+                android:src="@drawable/back"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:paddingRight="100dp"
+            android:singleLine="true"
+            android:text="2 版本"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/mulit_iv_comeon_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/comeon_me"/>
+
+        <ImageView
+            android:id="@+id/mulit_iv_comeon_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/comeon_share"/>
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/mulit_tl_users"
+        style="@style/mulit_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        app:paddingStart="5dp"
+        app:tabIndicatorColor="@android:color/transparent"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <cn.incorner.contrast.view.ScrollListenerListView
+            android:id="@+id/wolai_lv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </cn.incorner.contrast.view.ScrollListenerListView>
+
+        <ImageView
+            android:id="@+id/mulit_iv_arrow_left"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/left"
+            />
+
+        <ImageView
+            android:id="@+id/mulit_iv_arrow_right"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/right"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>

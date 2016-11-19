@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.incorner.contrast"
+    android:versionCode="4"
+    android:versionName="1.0.4" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <application
+        android:name=".BaseApplication"
+        android:icon="@drawable/icon_yuanjiao"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+        android:hardwareAccelerated="false">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3636ff88784d87855f0ab1cd26a0153e" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity
+            android:name=".page.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <!-- 引导页 -->
+        <activity
+            android:name=".page.GuideActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 主页面 -->
+        <activity
+            android:name=".page.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 创作 页面 -->
+        <activity
+            android:name=".page.PostActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".page.PopWindowSelectCaremer"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <!-- 对比度评论 页面 -->
+        <activity
+            android:name=".page.ContrastCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!--用户对比度页面  -->
+         <activity
+            android:name=".page.UserParagraphActivity"
+            android:screenOrientation="portrait" />
+        <!-- 我的对比度 页面 -->
+        <!-- 以gridview形式展示 -->
+        <activity
+            android:name=".page.MyParagraphShowActivity"
+            android:screenOrientation="portrait" />
+        <!-- 以list形式展示 -->
+        <activity
+            android:name=".page.MyParagraphActivity"
+            android:screenOrientation="portrait" />
+         <!-- 我喜欢的对比度 显示小图(所有) -->
+        <activity
+            android:name=".page.MyFollowingUserParagraphActivity"
+            android:screenOrientation="portrait" />
+        <!-- 我喜欢的对比度 页面 -->
+        <activity
+            android:name=".page.MyLikeActivity"
+            android:screenOrientation="portrait" />
+        <!-- 用户对比度列表 页面 -->
+        <activity
+            android:name=".page.UserParagraphListActivity"
+            android:screenOrientation="portrait" />
+        <!-- 设置 页面 -->
+        <activity
+            android:name=".page.SettingActivity"
+            android:screenOrientation="portrait" />
+        <!-- 登录 页面 -->
+        <activity
+            android:name=".page.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".page.LoginActivity2"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+         <activity
+            android:name=".page.LoginTransitionActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+          <activity
+            android:name=".page.ForgetPwdActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+          <activity
+            android:name=".page.RecomendActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+         
+
+        <!-- 注册 页面 -->
+        <activity
+            android:name=".page.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 消息 页面 -->
+        <activity
+            android:name=".page.MessageActivity"
+            android:screenOrientation="portrait" 
+            android:parentActivityName=".page.MainActivity"/>
+        <!-- 指定话题 页面 -->
+        <activity
+            android:name=".page.TopicSpecifiedListActivity"
+            android:screenOrientation="portrait" />
+        <!-- 欢迎 页面 -->
+        <activity
+            android:name=".page.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+        <!-- 搜索对比度 页面 -->
+        <activity
+            android:name=".page.SearchParagraphActivity"
+            android:screenOrientation="portrait" />
+        <!-- 搜索用户 页面 -->
+        <activity
+            android:name=".page.SearchUserActivity"
+            android:screenOrientation="portrait" />
+        <!-- 作品详情 页面 -->
+        <activity
+            android:name=".page.ContrastDetailActivity"
+            android:screenOrientation="portrait" />
+       <!-- 发私信 页面 -->
+         <activity
+            android:name=".page.SendPrivateMessagesActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <!-- 我来 页面 -->
+        <activity
+            android:name=".page.WoLaiContrastDetailActivity"
+            android:screenOrientation="portrait"/>
+        
+        <!-- Umeng <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57075df9e0f55a4c5700097c" >
+        </meta-data>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!-- Weixin -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- Weibo -->
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false" >
+        </service>
+
+        <!-- QQ -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105270229" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- Umeng >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+        
+         <!--个推SDK配置开始-->
+        <!-- 配置的第三方参数属性 -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="ldaCLICCiu5PhKPOmau0r6" /><!--替换为第三方应用的APPID-->
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="rH317sen378bMZQe1w0pn2" /><!--替换为第三方应用的APPKEY-->
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="JPaAmsnTg06i16GAJkKx52" /><!--替换为第三方应用的APPSECRET-->
+        <!-- 配置SDK核心服务 -->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice" />
+        <service
+            android:name="com.igexin.sdk.PushServiceUser"
+            android:exported="true"
+            android:label="NotificationCenterUser" />
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.igexin.sdk.PushManagerReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 配置第三方Receiver -->
+        <receiver
+            android:name="cn.incorner.contrast.getui.GeTuiPushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.ldaCLICCiu5PhKPOmau0r6" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.igexin.sdk.GActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <service
+            android:name="com.igexin.download.DownloadService"
+            android:process=":pushservice" />
+
+        <receiver android:name="com.igexin.download.DownloadReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.igexin.download.DownloadProvider"
+            android:exported="true"
+            android:authorities="cn.incorner.contrast"
+            android:process=":pushservice" /><!--替换为第三方应用的包名-->
+
+        <activity
+            android:name="com.igexin.getuiext.activity.GetuiExtActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="android.task.myServicetask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <receiver
+            android:name="com.igexin.getuiext.service.PayloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
+                <action android:name="com.igexin.sdk.action.ldaCLICCiu5PhKPOmau0r6" /><!--替换为第三方应用的APPID-->
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.igexin.getuiext.service.GetuiExtService"
+            android:process=":pushservice" />
+
+        <!-- 个推SDK配置结束 -->
+    </application>
+
+</manifest>

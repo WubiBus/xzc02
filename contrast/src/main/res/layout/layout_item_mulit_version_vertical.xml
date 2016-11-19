@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_image_and_desc_container"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="325dp">
+        </FrameLayout>
+        <!-- 下面描述布局 -->
+
+        <LinearLayout
+            android:id="@+id/ll_bottom_desc_container"
+            android:layout_width="match_parent"
+            android:layout_height="177dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- 描述一 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_desc_container_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_desc_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="先看到的"/>
+            </RelativeLayout>
+
+            <!-- 描述二 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_desc_container_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_desc_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="后看到的"/>
+
+                <!-- mask -->
+
+                <TextView
+                    android:id="@+id/tv_mask"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="......"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

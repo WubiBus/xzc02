@@ -1,0 +1,13 @@
+!.gitignore
+contrast/build/*
+/build/*
+/.gradle/*
+/.idea/*
+*.iml
+guideShowLib/build/*
+gUIImageLibrary/build/*
+local.properties
+app/src/main/gen/*
+/.DS_Store
+local.properties
+

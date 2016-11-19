@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="deep_gray">#2b2b2b</color>
+    <color name="gray">#d5d5d5</color>
+    <color name="text_gray">#333333</color>
+    <color name="text_gray_2">#999999</color>
+    <color name="text_gray_3">#666666</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="red">#ffff0000</color>
+    <color name="green">#ff00ff00</color>
+    <color name="blue">#ff0000ff</color>
+
+    <!-- 滤镜颜色 -->
+    <color name="color_1">#ffff00</color>
+    <color name="color_2">#ff0000</color>
+    <color name="color_3">#8B4513</color>
+    <color name="color_4">#A020F0</color>
+    <color name="color_5">#4169E1</color>
+    <color name="color_6">#DA70D6</color>
+    <color name="color_7">#f0ffff</color>
+
+    <!-- 各种彩色的颜色 -->
+    <color name="colors_1">#ff9600</color>
+    <color name="colors_2">#e3597d</color>
+    <color name="colors_3">#983ac4</color>
+    <color name="colors_4">#bf246d</color>
+    <color name="colors_5">#b42ce1</color>
+    <color name="colors_6">#379e2f</color>
+    <color name="colors_7">#f07511</color>
+    <color name="colors_8">#5551f1</color>
+    <color name="colors_9">#2273bf</color>
+
+    <!-- 各种彩色的颜色 -->
+    <color name="colors_11">#33ff9600</color>
+    <color name="colors_22">#33e3597d</color>
+    <color name="colors_33">#33983ac4</color>
+    <color name="colors_44">#33bf246d</color>
+    <color name="colors_55">#33b42ce1</color>
+    <color name="colors_66">#33379e2f</color>
+    <color name="colors_77">#33f07511</color>
+    <color name="colors_88">#335551f1</color>
+    <color name="colors_99">#332273bf</color>
+
+    <!-- 20种颜色 -->
+    <color name="color_20_01">#ffea4403</color>
+    <color name="color_20_02">#ff187972</color>
+    <color name="color_20_03">#fffed400</color>
+    <color name="color_20_04">#ffb9e0e3</color>
+    <color name="color_20_05">#ff8dd0d5</color>
+    <color name="color_20_06">#ff595757</color>
+    <color name="color_20_07">#ff58beb9</color>
+    <color name="color_20_08">#ffec6800</color>
+    <color name="color_20_09">#ff3b5e66</color>
+    <color name="color_20_10">#fff8b62d</color>
+    <color name="color_20_11">#ff57624d</color>
+    <color name="color_20_12">#ffd7000f</color>
+    <color name="color_20_13">#ffc9cd60</color>
+    <color name="color_20_14">#ff009fa8</color>
+    <color name="color_20_15">#ffecdfc9</color>
+    <color name="color_20_16">#fffccb00</color>
+    <color name="color_20_17">#ffe83828</color>
+    <color name="color_20_18">#ff4f535c</color>
+    <color name="color_20_19">#ff47372e</color>
+    <color name="color_20_20">#ffd1c0aa</color>
+
+    <!-- 登录页圆环的颜色 -->
+    <color name="login_yellow">#ddd4d77f</color>
+    <color name="login_red">#b0FF0000</color>
+    <color name="login_blue">#90a6dada</color>
+    
+    <!-- 主页有趣有料等颜色 -->
+    <color name="main_top_title_text">#009FA8</color>
+    
+</resources>

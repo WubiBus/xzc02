@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <corners android:radius="14dp" />
+
+    <stroke
+        android:width="1px"
+        android:color="#ffaaaaaa" />
+
+    <!-- 不设置solid的话，有些手机由于默认主题的关系，可能出现不同背景色 -->
+    <solid android:color="@android:color/transparent" />
+
+</shape>

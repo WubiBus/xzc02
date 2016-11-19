@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="3dp" >
+
+        <cn.incorner.contrast.view.SquareLinearLayout
+            android:id="@+id/ll_topic_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0f00ff00"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <!-- 话题名称 -->
+
+            <TextView
+                android:id="@+id/tv_topic_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="#神奇的脑洞"
+                android:textSize="14sp"
+                android:alpha="0.6"/>
+
+            <!-- 话题数量 -->
+
+            <TextView
+                android:id="@+id/tv_topic_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="234"
+                android:textSize="12sp"
+                android:alpha="0.6"/>
+        </cn.incorner.contrast.view.SquareLinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
