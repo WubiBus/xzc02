@@ -1,22 +1,10 @@
 package cn.incorner.contrast.page;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.json.JSONObject;
-import org.xutils.x;
-import org.xutils.common.Callback.CommonCallback;
-import org.xutils.http.RequestParams;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.ViewInject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -24,6 +12,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSON;
+import com.umeng.socialize.UMShareAPI;
+
+import org.json.JSONObject;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.BaseFragment;
@@ -35,7 +37,6 @@ import cn.incorner.contrast.data.adapter.ContrastListAdapter;
 import cn.incorner.contrast.data.entity.BannerEntity;
 import cn.incorner.contrast.data.entity.BannerResultEntity;
 import cn.incorner.contrast.data.entity.CommentResultEntity;
-import cn.incorner.contrast.data.entity.FollowerEntity;
 import cn.incorner.contrast.data.entity.ParagraphCommentEntity;
 import cn.incorner.contrast.data.entity.ParagraphEntity;
 import cn.incorner.contrast.data.entity.ParagraphResultEntity;
@@ -44,14 +45,10 @@ import cn.incorner.contrast.util.DD;
 import cn.incorner.contrast.util.DensityUtil;
 import cn.incorner.contrast.util.PrefUtil;
 import cn.incorner.contrast.util.QDataModule;
-import cn.incorner.contrast.util.TT;
 import cn.incorner.contrast.view.CustomRefreshFramework;
 import cn.incorner.contrast.view.CustomRefreshFramework.OnRefreshingListener;
 import cn.incorner.contrast.view.RefreshingAnimationView.IRefreshingAnimationView;
 import cn.incorner.contrast.view.ScrollListenerListView;
-
-import com.alibaba.fastjson.JSON;
-import com.umeng.socialize.UMShareAPI;
 
 /**
  * 主页面第一个fragment
@@ -551,7 +548,7 @@ public class MainFragment extends BaseFragment implements OnClickListener {
 		scrollTop();
 
 		currentTag = Config.SELECTED_TAG;
-		 refreshParagraphByTag(Config.SELECTED_TAG);
+		refreshParagraphByTag(Config.SELECTED_TAG);
 		crlContainer.refreshWithoutAnim();
 	}
 	
@@ -644,6 +641,10 @@ public class MainFragment extends BaseFragment implements OnClickListener {
 		DD.d(TAG, "getRowFrom(), list.size: " + listParagraph.size());
 
 		return listParagraph.size();
+	}
+
+	public void refreshData() {
+		loadData();
 	}
 
 	/**
@@ -794,4 +795,12 @@ public class MainFragment extends BaseFragment implements OnClickListener {
 		}
 	}
 
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		if(!hidden){
+			//重新show的时候刷新页面
+			loadData();
+		}
+	}
 }

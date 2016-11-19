@@ -1,27 +1,5 @@
 package cn.incorner.contrast.page;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import cn.incorner.contrast.Constant;
-import cn.incorner.contrast.data.adapter.BannerPagerAdapter;
-import cn.incorner.contrast.data.entity.BannerEntity;
-import cn.incorner.contrast.data.entity.BannerResultEntity;
-import cn.incorner.contrast.util.QDataModule;
-
-import org.json.JSONObject;
-import org.xutils.x;
-import org.xutils.common.Callback.CommonCallback;
-import org.xutils.http.RequestParams;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -31,29 +9,24 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.animation.Animation;
@@ -72,7 +45,31 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
+import com.amap.api.location.AMapLocationListener;
+import com.igexin.sdk.PushManager;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.socialize.UMShareAPI;
+
+import org.json.JSONObject;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.BaseFragmentActivity;
@@ -82,6 +79,8 @@ import cn.incorner.contrast.blur.Blur;
 import cn.incorner.contrast.blur.FastBlur;
 import cn.incorner.contrast.data.adapter.TopicGridViewAdapter;
 import cn.incorner.contrast.data.entity.AnonymousRegEntity;
+import cn.incorner.contrast.data.entity.BannerEntity;
+import cn.incorner.contrast.data.entity.BannerResultEntity;
 import cn.incorner.contrast.data.entity.StatusResultEntity;
 import cn.incorner.contrast.data.entity.TopicEntity;
 import cn.incorner.contrast.data.entity.TopicResultEntity;
@@ -92,6 +91,7 @@ import cn.incorner.contrast.util.DD;
 import cn.incorner.contrast.util.DataCleanManager;
 import cn.incorner.contrast.util.DensityUtil;
 import cn.incorner.contrast.util.PrefUtil;
+import cn.incorner.contrast.util.QDataModule;
 import cn.incorner.contrast.util.TT;
 import cn.incorner.contrast.view.BottomPopupWindow;
 import cn.incorner.contrast.view.CircleImageView;
@@ -104,16 +104,6 @@ import cn.incorner.contrast.view.ReboundHorizontalScrollView;
 import cn.incorner.contrast.view.RefreshingAnimationView;
 import cn.incorner.contrast.view.RefreshingAnimationView.IRefreshingAnimationView;
 import cn.incorner.contrast.view.SweepingView;
-
-import com.alibaba.fastjson.JSON;
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
-import com.amap.api.location.AMapLocationListener;
-import com.igexin.sdk.PushManager;
-import com.umeng.analytics.AnalyticsConfig;
-import com.umeng.socialize.UMShareAPI;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseFragmentActivity implements OnTouchMoveListener,
@@ -419,10 +409,18 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			rlAllFindBoard.setVisibility(View.GONE);
 			// 设置fragment
 			if (fragMine.isAdded()) {
-				fmManager.beginTransaction().show(fragMain).hide(fragMine)
-						.commitAllowingStateLoss();
+				if(fragMain.isVisible()){
+					fragMain.refreshData();
+				}else{
+					fmManager.beginTransaction().show(fragMain).hide(fragMine)
+							.commitAllowingStateLoss();
+				}
 			} else {
-				fmManager.beginTransaction().show(fragMain).commitAllowingStateLoss();
+				if(fragMain.isVisible()){
+					fragMain.refreshData();
+				}else{
+					fmManager.beginTransaction().show(fragMain).commitAllowingStateLoss();
+				}
 			}
 		} else {
 			rlLeft.setSelected(false);
