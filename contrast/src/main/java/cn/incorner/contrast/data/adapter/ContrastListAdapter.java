@@ -726,6 +726,7 @@ public class ContrastListAdapter extends BaseAdapter {
                     intent2.setClass(context, PostActivity.class);
                     //如果传的是 paragraph2 的话就是 我来
                     intent2.putExtra("paragraph2", list.get(position2));
+                    intent2.putExtra("openMulit",true);
                     ((Activity) context).startActivityForResult(intent2, MainActivity.REQUEST_CODE_POST);
                 } else {
                     //跳转到几个版本的页面
@@ -1209,43 +1210,37 @@ public class ContrastListAdapter extends BaseAdapter {
             }
         }
         String[] arrContent = getDesContent(mContent);
+        setUpDesColors(holder, entity, arrContent);
+        setUpDesContent(holder, entity, arrContent);
+    }
+
+    private void setUpDesContent(ViewHolder holder, ParagraphEntity entity, String[] arrContent) {
+        if (arrContent == null) return;
+        // 设置描述
+        DD.d(TAG, "desc1: " + arrContent[0] + ", desc2: " + arrContent[1]);
+        parseDesc(arrContent[0], holder.tvDesc1, holder.ivUrlFlag1, entity);
+        parseDesc(arrContent[1], holder.tvDesc2, holder.ivUrlFlag2, entity);
+        if (arrContent[1].contains(Config.PATTERN_HIDDEN) && !entity.hasSeened) {
+            holder.rlMask2.setVisibility(View.VISIBLE);
+            holder.tvMask.setVisibility(View.VISIBLE);
+        } else {
+            holder.rlMask2.setVisibility(View.GONE);
+            holder.tvMask.setVisibility(View.GONE);
+        }
+    }
+
+    private void setUpDesColors(ViewHolder holder, ParagraphEntity entity, String[] arrContent) {
         if (arrContent == null) return;
         // 优化速度
         holder.desc2 = arrContent[1];
         DD.d(TAG, "colorA: " + arrContent[2] + ", colorB: " + arrContent[3]);
-        final Matcher mColorRgb1 = PATTERN_COLOR_RGB.matcher(arrContent[2]);
-        final Matcher mColorIndex1 = PATTERN_COLOR_INDEX.matcher(arrContent[2]);
-        if (mColorRgb1.find()) {
-            try {
-                int color = Color.rgb(Integer.parseInt(mColorRgb1.group(1)),
-                        Integer.parseInt(mColorRgb1.group(2)),
-                        Integer.parseInt(mColorRgb1.group(3)));
-                holder.tvDesc1.setBackgroundColor(color);
-                // 设置图片背景颜色
-                holder.ivImage1.setBackgroundColor(color);
-                if (getGrayLevel(color) > 192) {
-                    holder.tvDesc1.setTextColor(Color.BLACK);
-                } else {
-                    holder.tvDesc1.setTextColor(Color.WHITE);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (mColorIndex1.find()) {
-            try {
-                int colorIndex = Integer.parseInt(mColorIndex1.group(1));
-                DD.d(TAG, "b.colorIndex: " + colorIndex);
-                holder.tvDesc1.setBackgroundColor(BaseActivity.BG_COLOR[colorIndex]);
-                holder.tvDesc1.setTextColor(BaseActivity.TEXT_COLOR[colorIndex]);
-                // 设置图片背景颜色
-                holder.ivImage1.setBackgroundColor(BaseActivity.BG_COLOR[colorIndex]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        setUpDes1Colors(holder, arrContent[2]);
+        setUpDes2Colors(holder, arrContent[3]);
+    }
 
-        final Matcher mColorRgb2 = PATTERN_COLOR_RGB.matcher(arrContent[3]);
-        final Matcher mColorIndex2 = PATTERN_COLOR_INDEX.matcher(arrContent[3]);
+    private void setUpDes2Colors(ViewHolder holder, String colors) {
+        Matcher mColorRgb2 = PATTERN_COLOR_RGB.matcher(colors);
+        Matcher mColorIndex2 = PATTERN_COLOR_INDEX.matcher(colors);
         if (mColorRgb2.find()) {
             try {
                 int color = Color.rgb(Integer.parseInt(mColorRgb2.group(1)),
@@ -1283,21 +1278,39 @@ public class ContrastListAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
         }
+    }
 
-        // 设置描述
-        DD.d(TAG, "desc1: " + arrContent[0] + ", desc2: " + arrContent[1]);
-
-        parseDesc(arrContent[0], holder.tvDesc1, holder.ivUrlFlag1, entity);
-        parseDesc(arrContent[1], holder.tvDesc2, holder.ivUrlFlag2, entity);
-        if (arrContent[1].contains(Config.PATTERN_HIDDEN) && !entity.hasSeened) {
-            holder.rlMask2.setVisibility(View.VISIBLE);
-            holder.tvMask.setVisibility(View.VISIBLE);
-        } else {
-            holder.rlMask2.setVisibility(View.GONE);
-            holder.tvMask.setVisibility(View.GONE);
+    private void setUpDes1Colors(ViewHolder holder, String colors) {
+        Matcher mColorRgb1 = PATTERN_COLOR_RGB.matcher(colors);
+        Matcher mColorIndex1 = PATTERN_COLOR_INDEX.matcher(colors);
+        if (mColorRgb1.find()) {
+            try {
+                int color = Color.rgb(Integer.parseInt(mColorRgb1.group(1)),
+                        Integer.parseInt(mColorRgb1.group(2)),
+                        Integer.parseInt(mColorRgb1.group(3)));
+                holder.tvDesc1.setBackgroundColor(color);
+                // 设置图片背景颜色
+                holder.ivImage1.setBackgroundColor(color);
+                if (getGrayLevel(color) > 192) {
+                    holder.tvDesc1.setTextColor(Color.BLACK);
+                } else {
+                    holder.tvDesc1.setTextColor(Color.WHITE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (mColorIndex1.find()) {
+            try {
+                int colorIndex = Integer.parseInt(mColorIndex1.group(1));
+                DD.d(TAG, "b.colorIndex: " + colorIndex);
+                holder.tvDesc1.setBackgroundColor(BaseActivity.BG_COLOR[colorIndex]);
+                holder.tvDesc1.setTextColor(BaseActivity.TEXT_COLOR[colorIndex]);
+                // 设置图片背景颜色
+                holder.ivImage1.setBackgroundColor(BaseActivity.BG_COLOR[colorIndex]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-
     }
 
     @Nullable

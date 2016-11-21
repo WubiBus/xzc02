@@ -86,7 +86,6 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initWoLai();
-        //第一次提交
     }
 
     private void initWoLai() {
