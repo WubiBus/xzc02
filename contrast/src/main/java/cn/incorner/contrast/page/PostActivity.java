@@ -2094,99 +2094,89 @@ public class PostActivity extends BaseFragmentActivity {
                     public void run() {
                         CommonUtil.saveBitmap(imageFile1, fBitmap1);
                         CommonUtil.saveBitmap(imageFile2, fBitmap2);
-                        runOnUiThread(new Runnable() {
+                        RequestParams params = new RequestParams(Config.PATH_UPLOAD_CONTRAST);
+                        params.setMultipart(true);
+                        params.addBodyParameter("accessToken",
+                                PrefUtil.getStringValue(Config.PREF_ACCESS_TOKEN));
+                        params.addBodyParameter("paragraphContent", getParagraphContent());
+                        params.addBodyParameter("createUserId",
+                                PrefUtil.getIntValue(Config.PREF_USER_ID) + "");
+                        params.addBodyParameter("originName",
+                                PrefUtil.getStringValue(Config.PREF_NICKNAME));
+                        params.addBodyParameter("originAuthor", CommonUtil.getUserLocation());
+                        params.addBodyParameter("tags", getTags());
+                        params.addBodyParameter("createTime",
+                                CommonUtil.getDefaultFormatCurrentTime());
+                        params.addBodyParameter("picName", getPicName());
+                        params.addBodyParameter("paragraphReplyId", UUID.randomUUID().toString());
+
+                        // if (isEdit) {
+                        // if (!useOtherUserImage1) {
+                        // params.addBodyParameter();("leftPic", imageFile1);
+                        // }
+                        // if (!useOtherUserImage2) {
+                        // params.addBodyParameter();("rightPic", imageFile2);
+                        // }
+                        // } else {
+                        params.addBodyParameter("leftPic", imageFile1);
+                        params.addBodyParameter("rightPic", imageFile2);
+                        // }
+
+                        if (isEdit) {
+                            params.addBodyParameter("paragraphId",
+                                    paragraphEntity.getParagraphId());
+                            params.addBodyParameter("isModify", 1 + "");
+                            params.addBodyParameter("createTime", paragraphEntity.getCreateTime());
+                        } else {
+                            params.addBodyParameter("paragraphId", UUID.randomUUID().toString());
+                            params.addBodyParameter("isModify", 0 + "");
+                            params.addParameter("seriesId", paragraphEntity.getSeriesId());
+                        }
+                        x.http().post(params, new CommonCallback<JSONObject>() {
                             @Override
-                            public void run() {
-                                RequestParams params = new RequestParams(
-                                        Config.PATH_UPLOAD_CONTRAST);
-                                params.setMultipart(true);
-                                params.addParameter("accessToken",
-                                        PrefUtil.getStringValue(Config.PREF_ACCESS_TOKEN));
-                                params.addParameter("paragraphContent", getParagraphContent());
-                                params.addParameter("createUserId",
-                                        PrefUtil.getIntValue(Config.PREF_USER_ID));
-                                params.addParameter("originName",
-                                        PrefUtil.getStringValue(Config.PREF_NICKNAME));
-                                params.addParameter("originAuthor", CommonUtil.getUserLocation());
-                                params.addParameter("tags", getTags());
-                                params.addParameter("createTime",
-                                        CommonUtil.getDefaultFormatCurrentTime());
-                                params.addParameter("picName", getPicName());
-                                params.addParameter("paragraphReplyId",
-                                        UUID.randomUUID().toString());
+                            public void onCancelled(CancelledException arg0) {
+                            }
 
-                                // if (isEdit) {
-                                // if (!useOtherUserImage1) {
-                                // params.addParameter("leftPic", imageFile1);
-                                // }
-                                // if (!useOtherUserImage2) {
-                                // params.addParameter("rightPic", imageFile2);
-                                // }
-                                // } else {
-                                params.addParameter("leftPic", imageFile1);
-                                params.addParameter("rightPic", imageFile2);
-                                // }
+                            @Override
+                            public void onError(Throwable arg0, boolean arg1) {
+                            }
 
-                                if (isEdit) {
-                                    params.addParameter("paragraphId",
-                                            paragraphEntity.getParagraphId());
-                                    params.addParameter("isModify", 1);
-                                    params.addParameter("createTime",
-                                            paragraphEntity.getCreateTime());
-                                } else {
-                                    params.addParameter("paragraphId",
-                                            UUID.randomUUID().toString());
-                                    params.addParameter("isModify", 0);
-                                    //params.addParameter("seriesId", paragraphEntity.getSeriesId
-                                         //   ());
-                                }
-                                x.http().post(params, new CommonCallback<JSONObject>() {
-                                    @Override
-                                    public void onCancelled(CancelledException arg0) {
-                                    }
+                            @Override
+                            public void onFinished() {
+                                ravRefreshingView.setRefreshing(false);
+                            }
 
-                                    @Override
-                                    public void onError(Throwable arg0, boolean arg1) {
-                                    }
-
-                                    @Override
-                                    public void onFinished() {
-                                        ravRefreshingView.setRefreshing(false);
-                                    }
-
-                                    @Override
-                                    public void onSuccess(JSONObject result) {
-                                        DD.d(TAG, "onSuccess(), result: " + result.toString());
-                                        StatusResultEntity entity = JSON
-                                                .parseObject(result.toString(),
-                                                        StatusResultEntity.class);
-                                        if ("0".equals(entity.getStatus())) {
-                                            if (lastTag != null) {
-                                                if (lastTag.indexOf("本周最佳") != -1) {
-                                                    TT.show(PostActivity.this,
-                                                            "'本周最佳'为无比活动内部字符，无法作为话题使用，感谢您的理解!");
-                                                }
-                                                if (lastTag.indexOf("每日精选") != -1) {
-                                                    TT.show(PostActivity.this,
-                                                            "'每日精选'为无比活动内部字符，无法作为话题使用，感谢您的理解!");
-                                                }
-                                            }
-                                            // 为了不保存数据
-                                            isEdit = true;
-                                            setResult(RESULT_OK);
-                                            finish();
-                                            if (mShouldOpenMulit) {
-                                                startMulitVersionActivity();
-                                            }
+                            @Override
+                            public void onSuccess(JSONObject result) {
+                                DD.d(TAG, "onSuccess(), result: " + result.toString());
+                                StatusResultEntity entity = JSON
+                                        .parseObject(result.toString(), StatusResultEntity.class);
+                                if ("0".equals(entity.getStatus())) {
+                                    if (lastTag != null) {
+                                        if (lastTag.indexOf("本周最佳") != -1) {
+                                            TT.show(PostActivity.this,
+                                                    "'本周最佳'为无比活动内部字符，无法作为话题使用，感谢您的理解!");
+                                        }
+                                        if (lastTag.indexOf("每日精选") != -1) {
+                                            TT.show(PostActivity.this,
+                                                    "'每日精选'为无比活动内部字符，无法作为话题使用，感谢您的理解!");
                                         }
                                     }
-                                });
+                                    // 为了不保存数据
+                                    isEdit = true;
+                                    setResult(RESULT_OK);
+                                    finish();
+                                    if (mShouldOpenMulit) {
+                                        startMulitVersionActivity();
+                                    }
+                                }
                             }
                         });
                     }
                 }).start();
             }
         }
+
     }
 
     private void startMulitVersionActivity() {
