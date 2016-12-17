@@ -44,6 +44,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
@@ -2268,6 +2269,8 @@ public class PostActivity extends BaseFragmentActivity {
                     if (mShouldOpenMulit) {
                         startMulitVersionActivity();
                     }
+                } else {
+                    Toast.makeText(PostActivity.this, "网络参数错误", Toast.LENGTH_LONG).show();
                 }
             }
         });
