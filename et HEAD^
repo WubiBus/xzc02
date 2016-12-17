@@ -1,0 +1,167 @@
+[1mdiff --git a/contrast/src/main/java/cn/incorner/contrast/data/adapter/ContrastListAdapter.java b/contrast/src/main/java/cn/incorner/contrast/data/adapter/ContrastListAdapter.java[m
+[1mindex c9ce57f..08672fb 100755[m
+[1m--- a/contrast/src/main/java/cn/incorner/contrast/data/adapter/ContrastListAdapter.java[m
+[1m+++ b/contrast/src/main/java/cn/incorner/contrast/data/adapter/ContrastListAdapter.java[m
+[36m@@ -715,6 +715,7 @@[m [mpublic class ContrastListAdapter extends BaseAdapter {[m
+         holder.tvWolai.setOnClickListener(new OnClickListener() {[m
+             @Override[m
+             public void onClick(View v) {[m
+[32m+[m[32m                DD.d(TAG, "徐志超 。。。。。。。。。。。。。。。。。。。。。。。。。。。" + entity.getSeriesId());[m
+                 if (!BaseActivity.sIsLogined()) {[m
+                     BaseActivity.sGotoActivity(context, LoginTransitionActivity.class);[m
+                     BaseActivity.sFinishActivity(context);[m
+[1mdiff --git a/contrast/src/main/java/cn/incorner/contrast/page/MainActivity.java b/contrast/src/main/java/cn/incorner/contrast/page/MainActivity.java[m
+[1mindex dfff14c..1d15a94 100755[m
+[1m--- a/contrast/src/main/java/cn/incorner/contrast/page/MainActivity.java[m
+[1m+++ b/contrast/src/main/java/cn/incorner/contrast/page/MainActivity.java[m
+[36m@@ -17,6 +17,7 @@[m [mimport android.net.Uri;[m
+ import android.os.Bundle;[m
+ import android.provider.MediaStore;[m
+ import android.support.v4.app.FragmentManager;[m
+[32m+[m[32mimport android.support.v4.app.FragmentTransaction;[m
+ import android.text.Editable;[m
+ import android.text.TextPaint;[m
+ import android.text.TextUtils;[m
+[36m@@ -113,8 +114,11 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ [m
+ 	private static final String FRAG_MAIN_TAG = "fragMainTag";[m
+ 	private static final String FRAG_MINE_TAG = "fragMineTag";[m
+[32m+[m	[32mprivate static final String FRAG_PERSON_TAG = "fragPersonTag";[m
+ 	private static final int FRAG_MAIN_FLAG = 1;[m
+ 	private static final int FRAG_MINE_FLAG = 2;[m
+[32m+[m	[32m//新添加的[m
+[32m+[m	[32mprivate static final int FRAG_PERSON_FLAG = 3;[m
+ [m
+ 	//当前页面[m
+ 	private int currentFragment;[m
+[36m@@ -216,6 +220,7 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 	@ViewInject(R.id.rl_1)[m
+ 	private RelativeLayout rlCircleRoot;[m
+ [m
+[32m+[m
+ 	private RelativeLayout rlContrastAmount;[m
+ 	private RelativeLayout rlSvContrastAmount;[m
+ 	private TextView tvContrastAmount;[m
+[36m@@ -269,9 +274,18 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 	@ViewInject(R.id.rav_refreshing_view)[m
+ 	private RefreshingAnimationView ravRefreshingView;[m
+ [m
+[32m+[m	[32m//导航上的页面名称[m
+[32m+[m	[32m@ViewInject(R.id.page_name)[m
+[32m+[m	[32mprivate TextView pageName;[m
+[32m+[m
+[32m+[m	[32m//新写的返回键[m
+[32m+[m	[32m@ViewInject(R.id.new_rl_back)[m
+[32m+[m	[32mprivate RelativeLayout newRlBack;[m
+[32m+[m
+ 	private FragmentManager fmManager;[m
+ 	private MainFragment fragMain;[m
+ 	private MineFragment fragMine;[m
+[32m+[m	[32mprivate PersonDetailFragment fragPersonDetail;[m
+ [m
+ 	private Blur blur;[m
+ [m
+[36m@@ -383,6 +397,7 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 		fmManager = getSupportFragmentManager();[m
+ 		fragMain = (MainFragment) fmManager.findFragmentByTag(FRAG_MAIN_TAG);[m
+ 		fragMine = (MineFragment) fmManager.findFragmentByTag(FRAG_MINE_TAG);[m
+[32m+[m		[32mfragPersonDetail = (PersonDetailFragment) fmManager.findFragmentByTag(FRAG_PERSON_TAG);[m
+ 		if (fragMain == null) {[m
+ 			fragMain = new MainFragment();[m
+ 			fmManager.beginTransaction().add(R.id.fl_container, fragMain, FRAG_MAIN_TAG)[m
+[36m@@ -391,6 +406,10 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 		if (fragMine == null) {[m
+ 			fragMine = new MineFragment();[m
+ 		}[m
+[32m+[m
+[32m+[m		[32mif (fragPersonDetail == null) {[m
+[32m+[m			[32mfragPersonDetail = new PersonDetailFragment();[m
+[32m+[m		[32m}[m
+ 		switchPage(FRAG_MAIN_FLAG);[m
+ 	}[m
+ [m
+[36m@@ -403,16 +422,17 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 		if (page == FRAG_MAIN_FLAG) {[m
+ 			rlLeft.setSelected(true);[m
+ 			rlRight.setSelected(false);[m
+[32m+[m			[32mllTopContainer.setVisibility(View.VISIBLE);[m
+ 			llMainNavContainer.setVisibility(View.VISIBLE);[m
+ 			hsvCategoryContainer2.setVisibility(View.GONE);[m
+ 			setMainNavSelector(R.id.tv_selected);[m
+ 			rlAllFindBoard.setVisibility(View.GONE);[m
+ 			// 设置fragment[m
+[31m-			if (fragMine.isAdded()) {[m
+[32m+[m			[32mif (fragPersonDetail.isAdded()) {[m
+ 				if(fragMain.isVisible()){[m
+ 					fragMain.refreshData();[m
+ 				}else{[m
+[31m-					fmManager.beginTransaction().show(fragMain).hide(fragMine)[m
+[32m+[m					[32mfmManager.beginTransaction().show(fragMain).hide(fragPersonDetail).hide(fragMine)[m
+ 							.commitAllowingStateLoss();[m
+ 				}[m
+ 			} else {[m
+[36m@@ -423,7 +443,7 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 				}[m
+ 			}[m
+ 		} else {[m
+[31m-			rlLeft.setSelected(false);[m
+[32m+[m			[32m/*rlLeft.setSelected(false);[m
+ 			rlRight.setSelected(true);[m
+ 			llMainNavContainer.setVisibility(View.GONE);[m
+ 			hsvCategoryContainer2.setVisibility(View.VISIBLE);[m
+[36m@@ -435,7 +455,23 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 			} else {[m
+ 				fmManager.beginTransaction().add(R.id.fl_container, fragMine, FRAG_MINE_TAG)[m
+ 						.show(fragMine).hide(fragMain).commitAllowingStateLoss();[m
+[32m+[m			[32m}*/[m
+[32m+[m
+[32m+[m			[32mrlLeft.setSelected(false);[m
+[32m+[m			[32mrlRight.setSelected(true);[m
+[32m+[m			[32mllMainNavContainer.setVisibility(View.GONE);[m
+[32m+[m			[32mhsvCategoryContainer2.setVisibility(View.GONE);[m
+[32m+[m			[32mrlAllFindBoard.setVisibility(View.GONE);[m
+[32m+[m			[32mllTopContainer.setVisibility(View.GONE);[m
+[32m+[m			[32m// 设置fragment[m
+[32m+[m			[32mif (fragPersonDetail.isAdded()) {[m
+[32m+[m				[32mfmManager.beginTransaction().show(fragPersonDetail).hide(fragMain).hide(fragMine)[m
+[32m+[m						[32m.commitAllowingStateLoss();[m
+[32m+[m			[32m} else {[m
+[32m+[m				[32mfmManager.beginTransaction().add(R.id.fl_container, fragPersonDetail, FRAG_PERSON_TAG)[m
+[32m+[m						[32m.show(fragPersonDetail).hide(fragMain).hide(fragMine).commitAllowingStateLoss();[m
+ 			}[m
+[32m+[m
+ 		}[m
+ 	}[m
+ [m
+[36m@@ -1453,7 +1489,7 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 	private void showUserBoard() {[m
+ 		DD.d(TAG, "showUserBoard()");[m
+ 		rlAllFindBoard.setVisibility(View.GONE);[m
+[31m-		rlUserBoard.setVisibility(View.VISIBLE);[m
+[32m+[m		[32mrlUserBoard.setVisibility(View.GONE);[m
+ 		rlBottomContainer.setVisibility(View.GONE);[m
+ 		// 启动动画[m
+ 		rlBordInAndOut(true);[m
+[36m@@ -1696,10 +1732,11 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 			finish();[m
+ 			return;[m
+ 		}[m
+[31m-		switchPage(FRAG_MINE_FLAG);[m
+[31m-		if (fragMine != null && fragMine.isVisible()) {[m
+[32m+[m
+[32m+[m		[32mswitchPage(FRAG_PERSON_FLAG);[m
+[32m+[m		[32m/*if (fragMine != null && fragMine.isVisible()) {[m
+ 			fragMine.scrollTop();[m
+[31m-		}[m
+[32m+[m		[32m}*/[m
+ 	}[m
+ [m
+ 	// 所有话题面板相关 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<[m
+[36m@@ -1912,6 +1949,15 @@[m [mpublic class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis[m
+ 		}, year, month, day).show();[m
+ 	}[m
+ [m
+[32m+[m	[32m//新写的返回键监听[m
+[32m+[m	[32m@Event(value = R.id.new_rl_back)[m
+[32m+[m	[32mprivate void onNewBackClick(View v) {[m
+[32m+[m		[32m//finish(

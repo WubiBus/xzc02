@@ -3,6 +3,7 @@ package cn.incorner.contrast.data.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.incorner.contrast.page.PostActivity;
 import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import android.content.Context;
@@ -17,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import cn.incorner.contrast.R;
-import cn.incorner.contrast.page.PostActivity;
 import cn.incorner.contrast.util.BitMapUtil;
 import cn.incorner.contrast.util.DensityUtil;
 import cn.incorner.contrast.util.GPUImageFilterTools;

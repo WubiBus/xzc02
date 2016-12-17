@@ -715,6 +715,7 @@ public class ContrastListAdapter extends BaseAdapter {
         holder.tvWolai.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                DD.d(TAG, "徐志超 。。。。。。。。。。。。。。。。。。。。。。。。。。。" + entity.getSeriesId());
                 if (!BaseActivity.sIsLogined()) {
                     BaseActivity.sGotoActivity(context, LoginTransitionActivity.class);
                     BaseActivity.sFinishActivity(context);

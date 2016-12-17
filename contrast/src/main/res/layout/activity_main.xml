@@ -20,6 +20,8 @@
         android:background="@color/white"
         android:orientation="vertical" >
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,8 +38,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
-                    android:src="@drawable/default_avatar" />
+                    android:src="@drawable/default_avatar"
+                    android:visibility="gone"/>
             </RelativeLayout>
+
+            <!-- 新写的返回 -->
+
+            <RelativeLayout
+                android:id="@+id/new_rl_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/back" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/page_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="哈哈哈"
+                android:visibility="gone"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="15dp"/>
 
             <ImageView
                 android:id="@+id/iv_msg"
@@ -55,26 +87,31 @@
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@id/iv_msg"
                 android:layout_toRightOf="@id/rl_head"
-                android:gravity="center_vertical" >
+                android:gravity="center_vertical"
+                android:layout_marginLeft="-25dp"
+                >
 
                 <LinearLayout
                     android:id="@+id/ll_main_nav_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+
+                    >
 
                     <TextView
                         android:id="@+id/tv_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
+                        android:layout_marginLeft="-1dp"
                         android:layout_marginRight="1dp"
                         android:paddingBottom="14dp"
                         android:paddingLeft="7dp"
                         android:paddingRight="7dp"
                         android:paddingTop="14dp"
                         android:text="关注"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        />
 
                     <TextView
                         android:id="@+id/tv_selected"
@@ -118,6 +155,8 @@
                         android:textColor="#ff595757"
                         android:textSize="15sp" />
                 </LinearLayout>
+
+
 
                 <cn.incorner.contrast.view.ReboundHorizontalScrollView
                     android:id="@+id/hsv_category_container_2"
@@ -240,6 +279,14 @@
                         android:contentDescription="@null"
                         android:src="@drawable/user_board_back" />
                 </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="设置"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="125dp"
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <!-- 大头像 -->

@@ -26,6 +26,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.BaseFragment;
@@ -76,6 +77,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 	@ViewInject(R.id.gv_content)
 	private HeaderFooterGridView gvContent;
 
+
 	//添加关注的布局
 	@ViewInject(R.id.tv_main_mine)
 	private TextView tv_MainMine;
@@ -99,6 +101,9 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 	//进来默认 当前页面
 	private int currentPage = MY_FOLLOWING_USER;
 	private MainActivity activity;
+
+	//int strKey = getArguments().getInt("key");
+	//private int currentPage = strKey;
 
 	DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbName("my_paragraph.db")
 			.setDbVersion(1).setDbOpenListener(new DbManager.DbOpenListener() {
@@ -138,6 +143,13 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		// 默认页面的数据适配器
 		gvContent.setAdapter(myFollowingUserAdapter);
 
+		int strKey = getArguments().getInt("key");
+		if (strKey != 0) {
+			currentPage = strKey;
+		} else {
+			currentPage = MY_FOLLOWING_USER;
+		}
+
 		// 初始化刷新框架
 		crlContainer.setOnRefreshingListener(new OnRefreshingListener() {
 			@Override
@@ -153,22 +165,57 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 			@Override
 			public void onRefreshFinish() {
 				switch (currentPage) {
-				case MY_PARAGRAPH:
+				case 1:
+					String text1 = "我的大作";
+					//onMyParagraphClick();
+					//pageName.setVisibility(View.VISIBLE);
+					activity.updateName(text1);
+					activity.showPageName();
+					activity.showBack();
+					gvContent.setAdapter(myParagraphAdapter);
 					if (listMyParagraph.size() > 0) {
 						myParagraphAdapter.notifyDataSetChanged();
 					}
 					((IRefreshingAnimationView) getActivity()).hideRefreshingAnimationView();
 					break;
-				case MY_LIKE_PARAGRAPH:
+				case 2:
+					String text2 = "我喜欢的";
+					activity.updateName(text2);
+					activity.showPageName();
+					activity.showBack();
+					//onMyLikeClick();
+					//pageName.setVisibility(View.VISIBLE);
+					gvContent.setAdapter(myLikeParagraphAdapter);
 					myLikeParagraphAdapter.notifyDataSetChanged();
 					break;
-				case MY_FOLLOWING_USER:
+				case 3:
+					String text3 = "我的关注";
+					activity.updateName(text3);
+					activity.showPageName();
+					activity.showBack();
+					//onMyFollowingUserClick();
+					//pageName.setVisibility(View.VISIBLE);
+					gvContent.setAdapter(myFollowingUserAdapter);
 					myFollowingUserAdapter.notifyDataSetChanged();
 					break;
-				case MY_ALL_TOPIC:
+				case 4:
+					String text4 = "我的话题";
+					activity.updateName(text4);
+					activity.showPageName();
+					activity.showBack();
+					//onMyAllTopicClick();
+					//pageName.setVisibility(View.VISIBLE);
+					gvContent.setAdapter(myAllTopicAdapter);
 					myAllTopicAdapter.notifyDataSetChanged();
 					break;
-				case MY_FOLLOWER_USER:
+				case 5:
+					String text5 = "我的粉丝";
+					activity.updateName(text5);
+					activity.showPageName();
+					activity.showBack();
+					//onMyFollowerUserClick();
+					//pageName.setVisibility(View.VISIBLE);
+					gvContent.setAdapter(myFollowerUserAdapter);
 					myFollowerUserAdapter.notifyDataSetChanged();
 					break;
 				}
@@ -195,7 +242,12 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 				getContext().startActivity(intent);
 			}
 		});*/
+
+
+
 	}
+
+
 
 	/**
 	 * 滚动到顶部
@@ -883,6 +935,9 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		}
 	}
 
+
+
+
 	@Event(value = R.id.gv_content, type = AdapterView.OnItemClickListener.class)
 	private void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		DD.d(TAG, "onItemClick(), position: " + position);
@@ -947,5 +1002,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+
 
 }

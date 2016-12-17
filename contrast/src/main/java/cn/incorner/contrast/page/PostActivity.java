@@ -2066,6 +2066,7 @@ public class PostActivity extends BaseFragmentActivity {
             TT.show(this, "创建本地临时文件失败");
             return;
         }
+        //如果是兼容模式
         if (isCompatibleMode) {
             postCompatibleContrast();
         } else {

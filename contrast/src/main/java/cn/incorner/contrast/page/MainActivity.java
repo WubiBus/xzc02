@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -113,8 +114,11 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 
 	private static final String FRAG_MAIN_TAG = "fragMainTag";
 	private static final String FRAG_MINE_TAG = "fragMineTag";
+	private static final String FRAG_PERSON_TAG = "fragPersonTag";
 	private static final int FRAG_MAIN_FLAG = 1;
 	private static final int FRAG_MINE_FLAG = 2;
+	//新添加的
+	private static final int FRAG_PERSON_FLAG = 3;
 
 	//当前页面
 	private int currentFragment;
@@ -216,6 +220,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 	@ViewInject(R.id.rl_1)
 	private RelativeLayout rlCircleRoot;
 
+
 	private RelativeLayout rlContrastAmount;
 	private RelativeLayout rlSvContrastAmount;
 	private TextView tvContrastAmount;
@@ -269,9 +274,18 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 	@ViewInject(R.id.rav_refreshing_view)
 	private RefreshingAnimationView ravRefreshingView;
 
+	//导航上的页面名称
+	@ViewInject(R.id.page_name)
+	private TextView pageName;
+
+	//新写的返回键
+	@ViewInject(R.id.new_rl_back)
+	private RelativeLayout newRlBack;
+
 	private FragmentManager fmManager;
 	private MainFragment fragMain;
 	private MineFragment fragMine;
+	private PersonDetailFragment fragPersonDetail;
 
 	private Blur blur;
 
@@ -317,6 +331,14 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		initUmengAnalytics();
 		init(savedInstanceState);
 		loadData();
+
+		//从PersonDetailFragment页面跳转过来的
+		Intent setIntent = getIntent();
+		String shezhi = setIntent.getStringExtra("haha");
+		if(!TextUtils.isEmpty(shezhi)) {
+			//显示个人面板
+			showUserBoard();
+		}
 	}
 
 	@Override
@@ -351,6 +373,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		initAMapLocation();
 		QDataModule.getInstance().addMessageReceiveListener(this);
 		QDataModule.getInstance().addFindGoneListener(this);
+
 	}
 
 	/**
@@ -383,6 +406,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		fmManager = getSupportFragmentManager();
 		fragMain = (MainFragment) fmManager.findFragmentByTag(FRAG_MAIN_TAG);
 		fragMine = (MineFragment) fmManager.findFragmentByTag(FRAG_MINE_TAG);
+		fragPersonDetail = (PersonDetailFragment) fmManager.findFragmentByTag(FRAG_PERSON_TAG);
 		if (fragMain == null) {
 			fragMain = new MainFragment();
 			fmManager.beginTransaction().add(R.id.fl_container, fragMain, FRAG_MAIN_TAG)
@@ -390,6 +414,10 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		}
 		if (fragMine == null) {
 			fragMine = new MineFragment();
+		}
+
+		if (fragPersonDetail == null) {
+			fragPersonDetail = new PersonDetailFragment();
 		}
 		switchPage(FRAG_MAIN_FLAG);
 	}
@@ -403,16 +431,17 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		if (page == FRAG_MAIN_FLAG) {
 			rlLeft.setSelected(true);
 			rlRight.setSelected(false);
+			llTopContainer.setVisibility(View.VISIBLE);
 			llMainNavContainer.setVisibility(View.VISIBLE);
 			hsvCategoryContainer2.setVisibility(View.GONE);
 			setMainNavSelector(R.id.tv_selected);
 			rlAllFindBoard.setVisibility(View.GONE);
 			// 设置fragment
-			if (fragMine.isAdded()) {
+			if (fragPersonDetail.isAdded()) {
 				if(fragMain.isVisible()){
 					fragMain.refreshData();
 				}else{
-					fmManager.beginTransaction().show(fragMain).hide(fragMine)
+					fmManager.beginTransaction().show(fragMain).hide(fragPersonDetail).hide(fragMine)
 							.commitAllowingStateLoss();
 				}
 			} else {
@@ -423,7 +452,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 				}
 			}
 		} else {
-			rlLeft.setSelected(false);
+			/*rlLeft.setSelected(false);
 			rlRight.setSelected(true);
 			llMainNavContainer.setVisibility(View.GONE);
 			hsvCategoryContainer2.setVisibility(View.VISIBLE);
@@ -435,7 +464,23 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			} else {
 				fmManager.beginTransaction().add(R.id.fl_container, fragMine, FRAG_MINE_TAG)
 						.show(fragMine).hide(fragMain).commitAllowingStateLoss();
+			}*/
+
+			rlLeft.setSelected(false);
+			rlRight.setSelected(true);
+			llMainNavContainer.setVisibility(View.GONE);
+			hsvCategoryContainer2.setVisibility(View.GONE);
+			rlAllFindBoard.setVisibility(View.GONE);
+			llTopContainer.setVisibility(View.GONE);
+			// 设置fragment
+			if (fragPersonDetail.isAdded()) {
+				fmManager.beginTransaction().show(fragPersonDetail).hide(fragMain).hide(fragMine)
+						.commitAllowingStateLoss();
+			} else {
+				fmManager.beginTransaction().add(R.id.fl_container, fragPersonDetail, FRAG_PERSON_TAG)
+						.show(fragPersonDetail).hide(fragMain).hide(fragMine).commitAllowingStateLoss();
 			}
+
 		}
 	}
 
@@ -1696,10 +1741,11 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			finish();
 			return;
 		}
-		switchPage(FRAG_MINE_FLAG);
-		if (fragMine != null && fragMine.isVisible()) {
+
+		switchPage(FRAG_PERSON_FLAG);
+		/*if (fragMine != null && fragMine.isVisible()) {
 			fragMine.scrollTop();
-		}
+		}*/
 	}
 
 	// 所有话题面板相关 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1910,6 +1956,15 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 				updateBornDate(s);
 			}
 		}, year, month, day).show();
+	}
+
+	//新写的返回键监听
+	@Event(value = R.id.new_rl_back)
+	private void onNewBackClick(View v) {
+		//finish();
+		getSupportFragmentManager().popBackStack();
+		llTopContainer.setVisibility(View.GONE);
+
 	}
 
 	/**
@@ -2367,6 +2422,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 
 	@SuppressWarnings("unused")
 	private void loadCircleData(UserInfoEntity userInfoEntity) {
+
 		RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		View v = null;
@@ -2728,5 +2784,21 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 	}
 
 	// banner相关 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	public void updateName(String text) {
+
+		pageName.setText(text);
+	}
+
+	public void showPageName() {
+		pageName.setVisibility(View.VISIBLE);
+	}
+
+	//显示返回键
+	public void showBack() {
+
+		newRlBack.setVisibility(View.VISIBLE);
+
+	}
 
 }
