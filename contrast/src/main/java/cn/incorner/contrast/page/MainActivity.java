@@ -333,12 +333,12 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		loadData();
 
 		//从PersonDetailFragment页面跳转过来的
-		Intent setIntent = getIntent();
-		String shezhi = setIntent.getStringExtra("haha");
-		if(!TextUtils.isEmpty(shezhi)) {
-			//显示个人面板
-			showUserBoard();
-		}
+//		Intent setIntent = getIntent();
+//		String shezhi = setIntent.getStringExtra("haha");
+//		if(!TextUtils.isEmpty(shezhi)) {
+//			//显示个人面板
+//			showUserBoard();
+//		}
 	}
 
 	@Override
@@ -434,6 +434,11 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			llTopContainer.setVisibility(View.VISIBLE);
 			llMainNavContainer.setVisibility(View.VISIBLE);
 			hsvCategoryContainer2.setVisibility(View.GONE);
+
+			//隐藏页面名字和新的返回键
+			pageName.setVisibility(View.GONE);
+			newRlBack.setVisibility(View.GONE);
+
 			setMainNavSelector(R.id.tv_selected);
 			rlAllFindBoard.setVisibility(View.GONE);
 			// 设置fragment
@@ -1212,7 +1217,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 
 			@Override
 			public void onSuccess(JSONObject result) {
-				DD.d(TAG, "onSuccess(), result: " + result);
+				DD.d(TAG, "用户信息数据.......................onSuccess(), result: " + result);
 
 				userInfoEntity = JSON.parseObject(result.toString(), UserInfoEntity.class);
 
@@ -1403,7 +1408,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 	/**
 	 * 显示浮动视图
 	 */
-	private void showFloatingView() {
+	public void showFloatingView() {
 		if (llTopContainer.getVisibility() == View.VISIBLE
 				&& rlBottomContainer.getVisibility() == View.VISIBLE) {
 			return;
@@ -1904,6 +1909,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		// do nothing, just for intercepting click event
 	}
 
+	//个人页面上的返回键
 	@Event(value = R.id.rl_back)
 	private void onBackClick(View v) {
 		DD.d(TAG, "onBackClick()");
@@ -1929,6 +1935,9 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 				setUserInfo();
 			}
 		}
+		switchPage(FRAG_PERSON_FLAG);
+		//显示底部
+		rlBottomContainer.setVisibility(View.VISIBLE);
 	}
 
 	@Event(value = R.id.tv_born)
@@ -2799,6 +2808,12 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 
 		newRlBack.setVisibility(View.VISIBLE);
 
+	}
+
+	// 当点击个人页面的“设置”
+	public void onSettingClick() {
+		switchPage(FRAG_MAIN_FLAG);
+		showUserBoard();
 	}
 
 }

@@ -72,5 +72,11 @@
     
     <!-- 主页有趣有料等颜色 -->
     <color name="main_top_title_text">#009FA8</color>
+
+    <!-- 新写的颜色 -->
+    <color name="hui">#EAEAEA</color>
+
+    <!-- 新写的颜色 -->
+    <color name="hei">#7D7D7D</color>
     
 </resources>

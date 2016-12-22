@@ -172,6 +172,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					activity.updateName(text1);
 					activity.showPageName();
 					activity.showBack();
+					activity.showFloatingView();
 					gvContent.setAdapter(myParagraphAdapter);
 					if (listMyParagraph.size() > 0) {
 						myParagraphAdapter.notifyDataSetChanged();
@@ -183,6 +184,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					activity.updateName(text2);
 					activity.showPageName();
 					activity.showBack();
+					activity.showFloatingView();
 					//onMyLikeClick();
 					//pageName.setVisibility(View.VISIBLE);
 					gvContent.setAdapter(myLikeParagraphAdapter);
@@ -193,6 +195,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					activity.updateName(text3);
 					activity.showPageName();
 					activity.showBack();
+					activity.showFloatingView();
 					//onMyFollowingUserClick();
 					//pageName.setVisibility(View.VISIBLE);
 					gvContent.setAdapter(myFollowingUserAdapter);
@@ -203,6 +206,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					activity.updateName(text4);
 					activity.showPageName();
 					activity.showBack();
+					activity.showFloatingView();
 					//onMyAllTopicClick();
 					//pageName.setVisibility(View.VISIBLE);
 					gvContent.setAdapter(myAllTopicAdapter);
@@ -213,6 +217,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					activity.updateName(text5);
 					activity.showPageName();
 					activity.showBack();
+					activity.showFloatingView();
 					//onMyFollowerUserClick();
 					//pageName.setVisibility(View.VISIBLE);
 					gvContent.setAdapter(myFollowerUserAdapter);
@@ -353,7 +358,8 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 			}
 		}
 
-		List<TopicEntity> listTopic = new ArrayList<TopicEntity>();
+		List<TopicEntity>
+				listTopic = new ArrayList<TopicEntity>();
 		for (Map.Entry<String, Integer> entry : mapTopic.entrySet()) {
 			TopicEntity topic = new TopicEntity();
 			topic.setTopicName(entry.getKey());

@@ -14,6 +14,7 @@ import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,16 +22,28 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 
 import org.json.JSONObject;
+import org.xutils.DbManager;
 import org.xutils.common.Callback;
+import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cn.incorner.contrast.BaseFragment;
 import cn.incorner.contrast.Config;
 import cn.incorner.contrast.R;
+import cn.incorner.contrast.data.entity.ParagraphEntity;
+import cn.incorner.contrast.data.entity.ParagraphResultEntity;
+import cn.incorner.contrast.data.entity.TopicEntity;
 import cn.incorner.contrast.data.entity.UserInfoEntity;
 import cn.incorner.contrast.util.CommonUtil;
 import cn.incorner.contrast.util.DD;
@@ -45,6 +58,11 @@ import cn.incorner.contrast.view.CustomRefreshFramework;
 public class PersonDetailFragment extends BaseFragment {
 
     private static final String TAG = "MainActivity.PersonDetailFragment";
+
+    private ParagraphResultEntity myLikeParagraphResultEntity;
+    private List<ParagraphEntity> listMyLikeParagraph = new ArrayList<ParagraphEntity>();
+
+    private List<TopicEntity> listMyAllTopic = new ArrayList<TopicEntity>();
 
     @ViewInject(R.id.rl_back)
     private RelativeLayout rlBack;
@@ -76,26 +94,58 @@ public class PersonDetailFragment extends BaseFragment {
     @ViewInject(R.id.tv_contact)
     private TextView tvContact;
 
-    @ViewInject(R.id.guanzhu)
-    private LinearLayout llGuanZhu;
+    @ViewInject(R.id.rl_guanzhu)
+    private RelativeLayout llGuanZhu;
 
-    @ViewInject(R.id.dazuo)
-    private LinearLayout llDaZuo;
+    @ViewInject(R.id.rl_dazuo)
+    private RelativeLayout llDaZuo;
 
-    @ViewInject(R.id.xihuan)
-    private LinearLayout llXiHuan;
+    @ViewInject(R.id.rl_xihuan)
+    private RelativeLayout llXiHuan;
 
-    @ViewInject(R.id.fensi)
-    private LinearLayout llFenSi;
+    @ViewInject(R.id.rl_fensi)
+    private RelativeLayout llFenSi;
 
-    @ViewInject(R.id.huati)
-    private LinearLayout llHuaTi;
+    @ViewInject(R.id.rl_huati)
+    private RelativeLayout llHuaTi;
 
     @ViewInject(R.id.shezhi)
     private LinearLayout llSheZhi;
 
+    @ViewInject(R.id.tv_guanzhucount)
+    private TextView tvGuanzhuCount;
+
+    @ViewInject(R.id.tv_dazuocount)
+    private TextView tvDazuoCount;
+
+    @ViewInject(R.id.tv_xihuancount)
+    private TextView tvXihuanCount;
+
+    @ViewInject(R.id.tv_fensicount)
+    private TextView tvFensiCount;
+
+    @ViewInject(R.id.tv_huaticount)
+    private TextView tvHuatiCount;
+
+    //消息
+    @ViewInject(R.id.iv_msg)
+    private ImageView ivMsg;
+
     // 用户信息数据
     private UserInfoEntity userInfoEntity;
+
+    DbManager.DaoConfig daoConfig = new DbManager.DaoConfig().setDbName("my_paragraph.db")
+            .setDbVersion(1).setDbOpenListener(new DbManager.DbOpenListener() {
+                @Override
+                public void onDbOpened(DbManager db) {
+                    // 开启WAL, 对写入加速提升巨大
+                    db.getDatabase().enableWriteAheadLogging();
+                }
+            }).setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+                @Override
+                public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                }
+            });
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -107,6 +157,10 @@ public class PersonDetailFragment extends BaseFragment {
     private void init() {
         //先加载用户数据
         loadUserInfo();
+        //从服务器刷新 我喜欢的
+        refreshMyLikeFromServer();
+        //从本地加载 我的话题
+        loadAllMyTopicFromLocal();
 
         llGuanZhu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,12 +275,30 @@ public class PersonDetailFragment extends BaseFragment {
             public void onClick(View view) {
 
                 //跳转到设置页面
-                Intent intent = new Intent();
-                intent.setClass(getContext(),MainActivity.class);
-                int haha = 1;
-                intent.putExtra("haha","设置");
-                getContext().startActivity(intent);
+                //Intent intent = new Intent();
+                //intent.setClass(getContext(),MainActivity.class);
+                //int haha = 1;
+                //intent.putExtra("haha","设置");
+                //getContext().startActivity(intent);
+                ((MainActivity)getActivity()).onSettingClick();
+            }
+        });
 
+        ivMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(),MessageActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
+        //点击头像
+        civHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //跳转到设置页面
+                ((MainActivity)getActivity()).onSettingClick();
             }
         });
     }
@@ -306,9 +378,113 @@ public class PersonDetailFragment extends BaseFragment {
                 tvContrastAmount.setText(String.valueOf(userInfoEntity.getParagraphCount()) + "幅大作");
                 tvFollowerAmount.setText(String.valueOf(userInfoEntity.getFollowerCount()) + "关注");
                 tvScoreAmount.setText( "积分" + String.valueOf(userInfoEntity.getScore()));
+
+                //关注
+                tvGuanzhuCount.setText(String.valueOf(userInfoEntity.getFollowCount()));
+                //大作
+                tvDazuoCount.setText(String.valueOf(userInfoEntity.getParagraphCount()));
+                //粉丝
+                tvFensiCount.setText(String.valueOf(userInfoEntity.getFollowerCount()));
                // loadCircleData(userInfoEntity);
             }
         });
 
     }
+
+    /**
+     * 从服务器刷新 我喜欢的对比度列表
+     */
+    private void refreshMyLikeFromServer() {
+        DD.d(TAG, "refreshMyLikeFromServer()");
+
+        RequestParams params = new RequestParams(Config.PATH_GET_LIKE_PARAGRAPH);
+        params.setAsJsonContent(true);
+        params.addParameter("accessToken", PrefUtil.getStringValue(Config.PREF_ACCESS_TOKEN));
+        params.addParameter("from", 0);
+        params.addParameter("row", 50);
+        params.addParameter("timestamp", CommonUtil.getDefaultFormatCurrentTime());
+        x.http().post(params, new Callback.CommonCallback<JSONObject>() {
+            @Override
+            public void onCancelled(CancelledException arg0) {
+            }
+
+            @Override
+            public void onError(Throwable arg0, boolean arg1) {
+            }
+
+            @Override
+            public void onFinished() {
+               // crlContainer.setRefreshing(false);
+            }
+
+            @Override
+            public void onSuccess(JSONObject result) {
+                DD.d(TAG, "onSuccess(), result: " + result.toString());
+
+                myLikeParagraphResultEntity = JSON.parseObject(result.toString(),
+                        ParagraphResultEntity.class);
+                String status = myLikeParagraphResultEntity.getStatus();
+                List<ParagraphEntity> list = myLikeParagraphResultEntity.getParagraphs();
+
+                if ("0".equals(status) && list != null && !list.isEmpty()) {
+                    listMyLikeParagraph.clear();
+                    listMyLikeParagraph.addAll(list);
+                }
+                //喜欢
+                tvXihuanCount.setText(String.valueOf(listMyLikeParagraph.size()));
+            }
+        });
+    }
+
+    /**
+     * 从本地加载所有我的话题
+     */
+    private void loadAllMyTopicFromLocal() {
+        DD.d(TAG, "loadAllMyTopicFromLocal()");
+
+        List<ParagraphEntity> listAll = null;
+        DbManager db = x.getDb(daoConfig);
+        try {
+            listAll = db.selector(ParagraphEntity.class)
+                    .where("create_user_id", "=", PrefUtil.getIntValue(Config.PREF_USER_ID))
+                    .findAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (listAll == null || listAll.isEmpty()) {
+            //crlContainer.setRefreshing(false);
+            return;
+        }
+
+        final Map<String, Integer> mapTopic = new HashMap<String, Integer>();
+        final Pattern pattern = Pattern.compile(Config.PATTERN_TAG_3);
+        for (final ParagraphEntity entity : listAll) {
+            final Matcher matcher = pattern.matcher(entity.getTags());
+            while (matcher.find()) {
+                final String tag = matcher.group(1);
+                Integer i = mapTopic.get(tag);
+                if (i == null) {
+                    mapTopic.put(tag, Integer.valueOf(1));
+                } else {
+                    mapTopic.put(tag, ++i);
+                }
+            }
+        }
+
+        List<TopicEntity>
+                listTopic = new ArrayList<TopicEntity>();
+        for (Map.Entry<String, Integer> entry : mapTopic.entrySet()) {
+            TopicEntity topic = new TopicEntity();
+            topic.setTopicName(entry.getKey());
+            topic.setTopicCount(entry.getValue());
+            listTopic.add(topic);
+        }
+        listMyAllTopic.clear();
+        listMyAllTopic.addAll(listTopic);
+        //crlContainer.setRefreshing(false);
+
+        //话题
+        tvHuatiCount.setText(String.valueOf(listMyAllTopic.size()));
+    }
+
 }

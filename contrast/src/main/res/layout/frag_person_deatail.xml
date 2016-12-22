@@ -22,43 +22,18 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
-                <!-- 返回 -->
-
-                <RelativeLayout
-                    android:id="@+id/rl_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:padding="8dp"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_centerInParent="true"
-                        android:contentDescription="@null"
-                        android:src="@drawable/back" />
-                </RelativeLayout>
-
-
-                <!-- 关注/取消关注 -->
-
-                <RelativeLayout
-                    android:id="@+id/rl_follow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/iv_msg"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="6dp" >
+                    android:layout_marginRight="8dp"
+                    android:contentDescription="@null"
+                    android:padding="5dp"
+                    android:src="@drawable/msg_unreceive" />
 
-                    <ImageView
-                        android:id="@+id/iv_follow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:padding="5dp"
-                        android:src="@drawable/unfollowed" />
-                </RelativeLayout>
+
             </RelativeLayout>
 
             <!-- 对比头像 昵称 -->
@@ -220,18 +195,27 @@
             </LinearLayout>
         </LinearLayout>
 
+    <View android:layout_height="10dp"
+        android:layout_width="match_parent"
+        android:background="@color/hui"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="0dp">
 
-        <LinearLayout
-            android:id="@+id/guanzhu"
+        <RelativeLayout
+            android:id="@+id/rl_guanzhu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/guanzhu"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -240,19 +224,47 @@
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/hei"
                 />
 
-        </LinearLayout>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_guanzhucount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/hei"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/arrow_right"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
 
         <View android:layout_height="0.5dp"
             android:layout_width="match_parent"
-            android:background="@android:color/background_dark"/>
+            android:background="@color/hui"/>
 
-        <LinearLayout
-            android:id="@+id/dazuo"
+        <RelativeLayout
+            android:id="@+id/rl_dazuo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/dazuo"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -260,19 +272,48 @@
                 android:text="我的大作"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/hei"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_dazuocount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/hei"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/arrow_right"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
 
         <View android:layout_height="0.5dp"
             android:layout_width="match_parent"
-            android:background="@android:color/background_dark"/>
+            android:background="@color/hui"/>
 
-        <LinearLayout
-            android:id="@+id/xihuan"
+        <RelativeLayout
+            android:id="@+id/rl_xihuan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/xihuan"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -280,19 +321,48 @@
                 android:text="我喜欢的"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/hei"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_xihuancount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/hei"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/arrow_right"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
 
         <View android:layout_height="0.5dp"
             android:layout_width="match_parent"
-            android:background="@android:color/background_dark"/>
+            android:background="@color/hui"/>
 
-        <LinearLayout
-            android:id="@+id/fensi"
+        <RelativeLayout
+            android:id="@+id/rl_fensi"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/fensi"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -300,19 +370,48 @@
                 android:text="我的粉丝"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/hei"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_fensicount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/hei"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/arrow_right"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
 
         <View android:layout_height="0.5dp"
             android:layout_width="match_parent"
-            android:background="@android:color/background_dark"/>
+            android:background="@color/hui"/>
 
-        <LinearLayout
-            android:id="@+id/huati"
+        <RelativeLayout
+            android:id="@+id/rl_huati"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/huati"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -320,13 +419,36 @@
                 android:text="我的话题"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:textColor="@color/hei"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_huaticount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:textColor="@color/hei"/>
 
-        <View android:layout_height="0.5dp"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/arrow_right"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <View android:layout_height="10dp"
             android:layout_width="match_parent"
-            android:background="@android:color/background_dark"/>
+            android:background="@color/hui"/>
 
         <LinearLayout
             android:id="@+id/shezhi"
@@ -334,15 +456,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/shezhi"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="设置"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/hei"/>
 
         </LinearLayout>
+
+        <View android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:background="@color/hui"/>
 
     </LinearLayout>
 
