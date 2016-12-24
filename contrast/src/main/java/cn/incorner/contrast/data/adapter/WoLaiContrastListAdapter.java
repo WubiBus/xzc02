@@ -33,6 +33,7 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
     private String mOriginName;
     private String mOriginAuthor;
     private String mCreateTime;
+    private ScrollAbleViewPager mVpMulitText;
 
     public WoLaiContrastListAdapter(ArrayList<ParagraphEntity> list, LayoutInflater inflater, View.OnClickListener listener, int imageOrientation, ColorStateList titleColor, int titleBack, ColorStateList resultColor, int resultBack) {
         super(list, inflater, listener);
@@ -48,12 +49,12 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         mView = super.getView(position, convertView, parent);
         ParagraphEntity entity = list.get(position);
         holder = (ViewHolder) mView.getTag();
-        ScrollAbleViewPager vpMulitText = (ScrollAbleViewPager) mView.findViewById(R.id.images_vp_text);
+        mVpMulitText = (ScrollAbleViewPager) mView.findViewById(R.id.images_vp_text);
         if (mAdapter == null) {
             mAdapter = new MulitTextAdapter(new ArrayList<ParagraphEntity>());
-            vpMulitText.setAdapter(mAdapter);
+            mVpMulitText.setAdapter(mAdapter);
             if (mOnViewPageSetUpCallBack != null) {
-                mOnViewPageSetUpCallBack.onViewPageSetUpCallBack(vpMulitText);
+                mOnViewPageSetUpCallBack.onViewPageSetUpCallBack(mVpMulitText);
             }
         }
         setUpMulitUserInfo(entity);
@@ -104,7 +105,7 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
     public void updateViewPageData(List<ParagraphEntity> newList) {
         if (mAdapter != null) {
             mAdapter.setData(newList);
-            mAdapter.notifyDataSetChanged();
+            mVpMulitText.setAdapter(mAdapter);
         }
     }
 

@@ -53,7 +53,10 @@ import cn.incorner.contrast.view.ScrollListenerListView;
  */
 
 @ContentView(R.layout.activity_contrast_detail_wolai)
-public class WoLaiContrastDetailActivity extends BaseActivity implements CustomRefreshFramework.OnTouchMoveListener, RefreshingAnimationView.IRefreshingAnimationView, View.OnClickListener, WoLaiContrastListAdapter.OnViewPageSetUpCallBack, AbsListView.OnScrollListener {
+public class WoLaiContrastDetailActivity extends BaseActivity
+        implements CustomRefreshFramework.OnTouchMoveListener,
+                   RefreshingAnimationView.IRefreshingAnimationView, View.OnClickListener,
+                   WoLaiContrastListAdapter.OnViewPageSetUpCallBack, AbsListView.OnScrollListener {
 
     private static final String TAG = "WoLaiContrastDetailActivity";
     private ParagraphEntity mEntity;
@@ -103,7 +106,6 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
 
     private void initView() {
         mTlUsers = (TabLayout) findViewById(R.id.mulit_tl_users);
-        tvTitle.setText(mEntity.getSeriesCount() + " " + getResources().getString(R.string.version));
         ivBack.setOnClickListener(this);
         ivComeonMe.setOnClickListener(this);
         ivComeonShare.setOnClickListener(this);
@@ -116,7 +118,8 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
         ArrayList paragraphEntitys = new ArrayList();
         mEntity.hasSeened = true;
         paragraphEntitys.add(mEntity);
-        mAdapter = new WoLaiContrastListAdapter(paragraphEntitys, getLayoutInflater(), this, mOrientation, mTitleTextColor, mTitleBackColor, mResultTextColor, mResultBackColor);
+        mAdapter = new WoLaiContrastListAdapter(paragraphEntitys, getLayoutInflater(), this,
+                mOrientation, mTitleTextColor, mTitleBackColor, mResultTextColor, mResultBackColor);
         mAdapter.setOnViewPageSetUpCallBack(this);
         lvContent.setAdapter(mAdapter);
         getParagraphVersionFromServer();
@@ -218,7 +221,8 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
     }
 
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                         int totalItemCount) {
         boolean canScrollVertically = ViewCompat.canScrollVertically(lvContent, -1);
         if (canScrollVertically) {
             if (ivArrowLeft.getVisibility() != View.GONE) {
@@ -302,30 +306,32 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
         }
         final UMImage umImage = umTempImage;
 
-        new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA)
+        new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN,
+                SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA)
                 .setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
                     public void onclick(SnsPlatform arg0, SHARE_MEDIA shareMedia) {
                         if (SHARE_MEDIA.QQ.equals(shareMedia)) {
-                            new ShareAction(WoLaiContrastDetailActivity.this).setPlatform(SHARE_MEDIA.QQ)
-                                    .withTitle(title).withText(text).withTargetUrl(targetUrl)
-                                    .withMedia(umImage).share();
+                            new ShareAction(WoLaiContrastDetailActivity.this)
+                                    .setPlatform(SHARE_MEDIA.QQ).withTitle(title).withText(text)
+                                    .withTargetUrl(targetUrl).withMedia(umImage).share();
                         } else if (SHARE_MEDIA.QZONE.equals(shareMedia)) {
-                            new ShareAction(WoLaiContrastDetailActivity.this).setPlatform(SHARE_MEDIA.QZONE)
-                                    .withTitle(title).withText(text).withTargetUrl(targetUrl)
-                                    .withMedia(umImage).share();
+                            new ShareAction(WoLaiContrastDetailActivity.this)
+                                    .setPlatform(SHARE_MEDIA.QZONE).withTitle(title).withText(text)
+                                    .withTargetUrl(targetUrl).withMedia(umImage).share();
                         } else if (SHARE_MEDIA.WEIXIN.equals(shareMedia)) {
-                            new ShareAction(WoLaiContrastDetailActivity.this).setPlatform(SHARE_MEDIA.WEIXIN)
-                                    .withTitle(title).withText(text).withTargetUrl(targetUrl)
-                                    .withMedia(umImage).share();
+                            new ShareAction(WoLaiContrastDetailActivity.this)
+                                    .setPlatform(SHARE_MEDIA.WEIXIN).withTitle(title).withText(text)
+                                    .withTargetUrl(targetUrl).withMedia(umImage).share();
                         } else if (SHARE_MEDIA.WEIXIN_CIRCLE.equals(shareMedia)) {
                             new ShareAction(WoLaiContrastDetailActivity.this)
                                     .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withTitle(title)
                                     .withText(text).withTargetUrl(targetUrl).withMedia(umImage)
                                     .share();
                         } else if (SHARE_MEDIA.SINA.equals(shareMedia)) {
-                            new ShareAction(WoLaiContrastDetailActivity.this).setPlatform(SHARE_MEDIA.SINA)
-                                    .withText(text).withTargetUrl(targetUrl).withMedia(umImage).share();
+                            new ShareAction(WoLaiContrastDetailActivity.this)
+                                    .setPlatform(SHARE_MEDIA.SINA).withText(text)
+                                    .withTargetUrl(targetUrl).withMedia(umImage).share();
                         }
                     }
                 }).open();
@@ -368,15 +374,12 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
      * 从服务器刷新 我发布的对比度列表
      */
     private void getParagraphVersionFromServer() {
-        RequestParams params = new RequestParams(
-                Config.PATH_GET_MULIT_VERSION);
+        RequestParams params = new RequestParams(Config.PATH_GET_MULIT_VERSION);
         params.setAsJsonContent(true);
         params.addParameter("seriesId", mEntity.getSeriesId());
-        params.addParameter("accessToken",
-                PrefUtil.getStringValue(Config.PREF_ACCESS_TOKEN));
+        params.addParameter("accessToken", PrefUtil.getStringValue(Config.PREF_ACCESS_TOKEN));
         params.addParameter("userId", PrefUtil.getIntValue(Config.PREF_USER_ID));
-        params.addParameter("timestamp",
-                CommonUtil.getDefaultFormatCurrentTime());
+        params.addParameter("timestamp", CommonUtil.getDefaultFormatCurrentTime());
         params.addParameter("from", 0);
         params.addParameter("row", 10);
         x.http().post(params, new Callback.CommonCallback<JSONObject>() {
@@ -395,12 +398,14 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
             @Override
             public void onSuccess(JSONObject result) {
                 DD.d("WoLaiContrastListAdapter", "onSuccess(), result: " + result.toString());
-                MulitVersionEntity entity = JSON.parseObject(
-                        result.toString(), MulitVersionEntity.class);
+                MulitVersionEntity entity = JSON
+                        .parseObject(result.toString(), MulitVersionEntity.class);
                 String status = entity.getStatus();
                 mParagraphEntitylist = entity.getParagraphs();
                 if ("0".equals(status)) {
                     mAdapter.updateViewPageData(mParagraphEntitylist);
+                    tvTitle.setText(mParagraphEntitylist.size() + " " + getResources()
+                            .getString(R.string.version));
                     updateMulitUserInfo(mParagraphEntitylist);
                 }
             }
@@ -409,12 +414,14 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
 
     private void updateMulitUserInfo(List<ParagraphEntity> newList) {
         mTlUsers.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTlUsers.removeAllTabs();
         for (int i = 0; i < newList.size(); i++) {
             ParagraphEntity entity = newList.get(i);
             TabLayout.Tab tab = mTlUsers.newTab();
             tab.setCustomView(R.layout.layout_mulit_tab_user_head);
             mTlUsers.addTab(tab);
-            final ImageView ivHead = (ImageView) tab.getCustomView().findViewById(R.id.mulit_iv_head);
+            final ImageView ivHead = (ImageView) tab.getCustomView()
+                    .findViewById(R.id.mulit_iv_head);
             x.image().loadDrawable(Config.getHeadFullPath(entity.getUserAvatarName()), null,
                     new Callback.CommonCallback<Drawable>() {
                         @Override
@@ -436,6 +443,16 @@ public class WoLaiContrastDetailActivity extends BaseActivity implements CustomR
                             ivHead.setImageBitmap(bitmap);
                         }
                     });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == MainActivity.REQUEST_CODE_POST) {
+                getParagraphVersionFromServer();
+            }
         }
     }
 }
