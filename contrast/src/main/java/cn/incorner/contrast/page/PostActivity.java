@@ -307,6 +307,8 @@ public class PostActivity extends BaseFragmentActivity {
     @ViewInject(R.id.rav_refreshing_view)
     private RefreshingAnimationView ravRefreshingView;
     private boolean mShouldOpenMulit;
+    private boolean mHasSerieId;
+    private String mOrientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -739,9 +741,12 @@ public class PostActivity extends BaseFragmentActivity {
         initGPUImageFilter();
         // 初始化 desc function 文字
         initDescFunctionText();
-        //是否跳转到多个版本页面
         if (getIntent() != null) {
+            //是否跳转到多个版本页面
             mShouldOpenMulit = getIntent().getBooleanExtra("openMulit", false);
+            //是否有已经存在seriesId
+            mHasSerieId = getIntent().getBooleanExtra("hasSeries", false);
+            mOrientation = getIntent().getStringExtra("orientation");
         }
     }
 
@@ -2130,9 +2135,15 @@ public class PostActivity extends BaseFragmentActivity {
                             params.addBodyParameter("isModify", 1 + "");
                             params.addBodyParameter("createTime", paragraphEntity.getCreateTime());
                         } else {
-                            params.addBodyParameter("paragraphId", UUID.randomUUID().toString());
+                            String paragraphId = UUID.randomUUID().toString();
+                            params.addBodyParameter("paragraphId", paragraphId);
                             params.addBodyParameter("isModify", 0 + "");
-                            params.addParameter("seriesId", paragraphEntity.getSeriesId());
+                            //是否需要生成seriesId
+                            if (mHasSerieId && !TextUtils.isEmpty(paragraphEntity.getSeriesId())) {
+                                params.addBodyParameter("seriesId", paragraphEntity.getSeriesId());
+                            } else {
+                                params.addBodyParameter("seriesId", paragraphId);
+                            }
                         }
                         x.http().post(params, new CommonCallback<JSONObject>() {
                             @Override
@@ -2188,7 +2199,7 @@ public class PostActivity extends BaseFragmentActivity {
         int color2 = ((ColorDrawable) etDesc2.getBackground()).getColor();
         ColorStateList textColors2 = etDesc2.getTextColors();
         intent2.putExtra("paragraph3", paragraphEntity);
-        intent2.putExtra("orientation", currentLayoutStyle);
+        intent2.putExtra("orientation", mOrientation);
         intent2.putExtra("titleBackColor", color1);
         intent2.putExtra("titleTextColor", textColors1);
         intent2.putExtra("resultBackColor", color2);

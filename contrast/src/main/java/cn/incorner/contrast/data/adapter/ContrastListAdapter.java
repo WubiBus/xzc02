@@ -246,14 +246,16 @@ public class ContrastListAdapter extends BaseAdapter {
         holder.tvNickname.setText(entity.getOriginName());
         holder.tvPublishTime.setText(CommonUtil.compareToDate(entity.getCreateTime()));
         holder.tvArea.setText(entity.getOriginAuthor());
-        holder.tvArea.setVisibility(StringUtils.isEmpty(entity.getOriginAuthor().trim()) ? View.GONE : View.VISIBLE);
+        holder.tvArea.setVisibility(
+                StringUtils.isEmpty(entity.getOriginAuthor().trim()) ? View.GONE : View.VISIBLE);
         holder.hsvFunctionContainer.smoothScrollTo(entity.functionScrollLocation, 0);
-        holder.hsvFunctionContainer.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                entity.functionScrollLocation = holder.hsvFunctionContainer.getScrollX();
-            }
-        });
+        holder.hsvFunctionContainer.getViewTreeObserver()
+                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        entity.functionScrollLocation = holder.hsvFunctionContainer.getScrollX();
+                    }
+                });
     }
 
     private void setUpLikeOrNot(ViewHolder holder, ParagraphEntity entity) {
@@ -263,7 +265,8 @@ public class ContrastListAdapter extends BaseAdapter {
         String tvcomment = "评论" + (entity.getCommentCount() > 0 ? entity.getCommentCount() : "");
         int a = ((entity.getCommentCount() > 0 ? entity.getCommentCount() : "") + "").length();
         SpannableString sas = new SpannableString(tvcomment);
-        sas.setSpan(new ForegroundColorSpan(Color.rgb(255, 226, 0)), 2, 2 + a, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sas.setSpan(new ForegroundColorSpan(Color.rgb(255, 226, 0)), 2, 2 + a,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvComment.setText(sas);
 
 
@@ -271,23 +274,25 @@ public class ContrastListAdapter extends BaseAdapter {
         String tvlike = "喜欢" + (entity.getLikeCount() > 0 ? entity.getLikeCount() : "");
         int b = ((entity.getLikeCount() > 0 ? entity.getLikeCount() : "") + "").length();
         SpannableString sbs = new SpannableString(tvlike);
-        sbs.setSpan(new ForegroundColorSpan(Color.rgb(255, 180, 0)), 2, 2 + b, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbs.setSpan(new ForegroundColorSpan(Color.rgb(255, 180, 0)), 2, 2 + b,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvLike.setText(sbs);
 
 
         //holder.tvDislike.setText("反感" + (entity.getComplaintCount() > 0 ? entity.getComplaintCount() : ""));
-        String tvdislike = "反感" + (entity.getComplaintCount() > 0 ? entity.getComplaintCount() : "");
+        String tvdislike =
+                "反感" + (entity.getComplaintCount() > 0 ? entity.getComplaintCount() : "");
         int c = ((entity.getComplaintCount() > 0 ? entity.getComplaintCount() : "") + "").length();
         SpannableString scs = new SpannableString(tvdislike);
-        scs.setSpan(new ForegroundColorSpan(Color.rgb(195, 13, 35)), 2, 2 + c, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        scs.setSpan(new ForegroundColorSpan(Color.rgb(195, 13, 35)), 2, 2 + c,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.tvDislike.setText(scs);
 
 
-        holder.ivLike.setImageResource(entity.getLikeState() > 0 ? R.drawable.xihuan_selected1
-                : R.drawable.xihuan_normal);
-        holder.ivDislike
-                .setImageResource(entity.getComplaintState() > 0 ? R.drawable.fangan_selected
-                        : R.drawable.fangan_normal);
+        holder.ivLike.setImageResource(
+                entity.getLikeState() > 0 ? R.drawable.xihuan_selected1 : R.drawable.xihuan_normal);
+        holder.ivDislike.setImageResource(entity.getComplaintState()
+                > 0 ? R.drawable.fangan_selected : R.drawable.fangan_normal);
     }
 
     protected void setUpImageDes(ViewHolder holder, ParagraphEntity entity) {
@@ -431,7 +436,8 @@ public class ContrastListAdapter extends BaseAdapter {
                     intent.setClass(context, PostActivity.class);
                     intent.putExtra("paragraph", entity);
                     intent.putExtra("isEdit", true);
-                    ((Activity) context).startActivityForResult(intent, MainActivity.REQUEST_CODE_POST);
+                    ((Activity) context)
+                            .startActivityForResult(intent, MainActivity.REQUEST_CODE_POST);
                     // BaseActivity.sGotoActivity(context, intent);
                 }
             });
@@ -475,7 +481,8 @@ public class ContrastListAdapter extends BaseAdapter {
                     Intent intent = new Intent();
                     intent.setClass(context, PostActivity.class);
                     intent.putExtra("paragraph", list.get(position));
-                    ((Activity) context).startActivityForResult(intent, MainActivity.REQUEST_CODE_POST);
+                    ((Activity) context)
+                            .startActivityForResult(intent, MainActivity.REQUEST_CODE_POST);
                     // BaseActivity.sGotoActivity(context, intent);
                 }
             });
@@ -510,8 +517,8 @@ public class ContrastListAdapter extends BaseAdapter {
                         @Override
                         public void onCancel() {
                         }
-                    }, R.layout.frag_message_with_ok_cancel_delete_contrast).show(
-                            ((FragmentActivity) context).getSupportFragmentManager(), "");
+                    }, R.layout.frag_message_with_ok_cancel_delete_contrast)
+                            .show(((FragmentActivity) context).getSupportFragmentManager(), "");
                 }
             });
         }
@@ -645,8 +652,8 @@ public class ContrastListAdapter extends BaseAdapter {
                 holder.llTagContainer.addView(tvTag);
             }
             // 调整标签位置
-            holder.llTagContainer.getViewTreeObserver().addOnGlobalLayoutListener(
-                    new OnGlobalLayoutListener() {
+            holder.llTagContainer.getViewTreeObserver()
+                    .addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
                         boolean hasDone = false;
 
                         @Override
@@ -655,8 +662,8 @@ public class ContrastListAdapter extends BaseAdapter {
                                 return;
                             }
                             hasDone = true;
-                            int width1 = holder.llTagContainer.getWidth()
-                                    - holder.llTagContainer.getPaddingLeft();
+                            int width1 = holder.llTagContainer.getWidth() - holder.llTagContainer
+                                    .getPaddingLeft();
                             int width2 = holder.hsvTagContainer.getWidth();
                             if (width1 < width2) {
                                 int leftPadding = (width2 - width1) / 2;
@@ -699,7 +706,8 @@ public class ContrastListAdapter extends BaseAdapter {
         return true;
     }
 
-    protected void setUpWolaiClick(ViewGroup parent, final ViewHolder holder, final ParagraphEntity entity) {
+    protected void setUpWolaiClick(ViewGroup parent, final ViewHolder holder,
+                                   final ParagraphEntity entity) {
         //我来 点击监听事件
         if (entity.getSeriesCount() == 1) {
             holder.tvWolai.setBackgroundResource(R.drawable.comeon_me);
@@ -721,14 +729,18 @@ public class ContrastListAdapter extends BaseAdapter {
                     BaseActivity.sFinishActivity(context);
                     return;
                 } else if (entity.getSeriesCount() == 1) {
-                    DD.d(TAG, "postData().................................." + entity.getSeriesCount());
+                    DD.d(TAG, "postData().................................." + entity
+                            .getSeriesCount());
                     int position2 = holder.position;
                     Intent intent2 = new Intent();
                     intent2.setClass(context, PostActivity.class);
                     //如果传的是 paragraph2 的话就是 我来
                     intent2.putExtra("paragraph2", list.get(position2));
-                    intent2.putExtra("openMulit",true);
-                    ((Activity) context).startActivityForResult(intent2, MainActivity.REQUEST_CODE_POST);
+                    intent2.putExtra("openMulit", true);
+                    intent2.putExtra("hasSeries", true);
+                    intent2.putExtra("orientation", holder.orientation);
+                    ((Activity) context)
+                            .startActivityForResult(intent2, MainActivity.REQUEST_CODE_POST);
                 } else {
                     //跳转到几个版本的页面
                     int position2 = holder.position;
@@ -745,7 +757,8 @@ public class ContrastListAdapter extends BaseAdapter {
                     intent2.putExtra("titleTextColor", textColors1);
                     intent2.putExtra("resultBackColor", color2);
                     intent2.putExtra("resultTextColor", textColors2);
-                    ((Activity) context).startActivityForResult(intent2, MainActivity.REQUEST_CODE_POST);
+                    ((Activity) context)
+                            .startActivityForResult(intent2, MainActivity.REQUEST_CODE_POST);
                 }
 
             }
@@ -768,14 +781,11 @@ public class ContrastListAdapter extends BaseAdapter {
         holder.ivUrlFlag1 = (ImageView) convertView.findViewById(R.id.iv_url_flag_1);
         holder.ivUrlFlag2 = (ImageView) convertView.findViewById(R.id.iv_url_flag_2);
         holder.tvDesc2 = (TextView) convertView.findViewById(R.id.tv_desc_2);
-        holder.llImageContainer = (LinearLayout) convertView
-                .findViewById(R.id.ll_image_container);
+        holder.llImageContainer = (LinearLayout) convertView.findViewById(R.id.ll_image_container);
         holder.ivImage1 = (ImageView) convertView.findViewById(R.id.iv_image_1);
         holder.ivImage2 = (ImageView) convertView.findViewById(R.id.iv_image_2);
-        holder.ivCompatibleImage = (ImageView) convertView
-                .findViewById(R.id.iv_compatible_image);
-        holder.llMaskContainer = (LinearLayout) convertView
-                .findViewById(R.id.ll_mask_container);
+        holder.ivCompatibleImage = (ImageView) convertView.findViewById(R.id.iv_compatible_image);
+        holder.llMaskContainer = (LinearLayout) convertView.findViewById(R.id.ll_mask_container);
         holder.rlMask1 = (RelativeLayout) convertView.findViewById(R.id.rl_mask_1);
         holder.ivHuodong = (ImageView) convertView.findViewById(R.id.iv_huodong);
         holder.ivZuire = (ImageView) convertView.findViewById(R.id.iv_zuire);
@@ -811,7 +821,8 @@ public class ContrastListAdapter extends BaseAdapter {
         holder.llScrollBack = (LinearLayout) convertView.findViewById(R.id.ll_scroll_back);
 
         //回答问题部分<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        holder.llAnswerQuestionShow = (LinearLayout) convertView.findViewById(R.id.ll_answer_question_show);
+        holder.llAnswerQuestionShow = (LinearLayout) convertView
+                .findViewById(R.id.ll_answer_question_show);
         holder.tv_question = (TextView) convertView.findViewById(R.id.tv_question);
         holder.et_answer = (EditText) convertView.findViewById(R.id.et_answer);
 
@@ -840,31 +851,21 @@ public class ContrastListAdapter extends BaseAdapter {
                 .findViewById(R.id.civ_comment_head_4);
         holder.civCommentHead5 = (CircleImageView) convertView
                 .findViewById(R.id.civ_comment_head_5);
-        holder.tvCommentNickname1 = (TextView) convertView
-                .findViewById(R.id.tv_comment_nickname_1);
-        holder.tvCommentNickname2 = (TextView) convertView
-                .findViewById(R.id.tv_comment_nickname_2);
-        holder.tvCommentNickname3 = (TextView) convertView
-                .findViewById(R.id.tv_comment_nickname_3);
-        holder.tvCommentNickname4 = (TextView) convertView
-                .findViewById(R.id.tv_comment_nickname_4);
-        holder.tvCommentNickname5 = (TextView) convertView
-                .findViewById(R.id.tv_comment_nickname_5);
+        holder.tvCommentNickname1 = (TextView) convertView.findViewById(R.id.tv_comment_nickname_1);
+        holder.tvCommentNickname2 = (TextView) convertView.findViewById(R.id.tv_comment_nickname_2);
+        holder.tvCommentNickname3 = (TextView) convertView.findViewById(R.id.tv_comment_nickname_3);
+        holder.tvCommentNickname4 = (TextView) convertView.findViewById(R.id.tv_comment_nickname_4);
+        holder.tvCommentNickname5 = (TextView) convertView.findViewById(R.id.tv_comment_nickname_5);
         holder.tvCommentDate1 = (TextView) convertView.findViewById(R.id.tv_comment_date_1);
         holder.tvCommentDate2 = (TextView) convertView.findViewById(R.id.tv_comment_date_2);
         holder.tvCommentDate3 = (TextView) convertView.findViewById(R.id.tv_comment_date_3);
         holder.tvCommentDate4 = (TextView) convertView.findViewById(R.id.tv_comment_date_4);
         holder.tvCommentDate5 = (TextView) convertView.findViewById(R.id.tv_comment_date_5);
-        holder.tvCommentLocation1 = (TextView) convertView
-                .findViewById(R.id.tv_comment_location_1);
-        holder.tvCommentLocation2 = (TextView) convertView
-                .findViewById(R.id.tv_comment_location_2);
-        holder.tvCommentLocation3 = (TextView) convertView
-                .findViewById(R.id.tv_comment_location_3);
-        holder.tvCommentLocation4 = (TextView) convertView
-                .findViewById(R.id.tv_comment_location_4);
-        holder.tvCommentLocation5 = (TextView) convertView
-                .findViewById(R.id.tv_comment_location_5);
+        holder.tvCommentLocation1 = (TextView) convertView.findViewById(R.id.tv_comment_location_1);
+        holder.tvCommentLocation2 = (TextView) convertView.findViewById(R.id.tv_comment_location_2);
+        holder.tvCommentLocation3 = (TextView) convertView.findViewById(R.id.tv_comment_location_3);
+        holder.tvCommentLocation4 = (TextView) convertView.findViewById(R.id.tv_comment_location_4);
+        holder.tvCommentLocation5 = (TextView) convertView.findViewById(R.id.tv_comment_location_5);
         holder.tvComment1 = (TextView) convertView.findViewById(R.id.tv_comment_1);
         holder.tvComment2 = (TextView) convertView.findViewById(R.id.tv_comment_2);
         holder.tvComment3 = (TextView) convertView.findViewById(R.id.tv_comment_3);
@@ -908,7 +909,8 @@ public class ContrastListAdapter extends BaseAdapter {
 
 
     //提交数据
-    private void postData(final String userContent, final ParagraphEntity entity, final EditText etanswer) {
+    private void postData(final String userContent, final ParagraphEntity entity,
+                          final EditText etanswer) {
         //打个log
         DD.d(TAG, "postData().................................." + userContent);
 
@@ -919,25 +921,27 @@ public class ContrastListAdapter extends BaseAdapter {
         params.addParameter("replyToUserId", entity.getUserId());
         params.addParameter("replyContent", userContent);
         params.addParameter("location", CommonUtil.getUserLocation());
-        DD.d(TAG, "params:.............................................................. " + params.toJSONString());
+        DD.d(TAG, "params:.............................................................. " + params
+                .toJSONString());
         x.http().post(params, new CommonCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject jsonObjectResult) {
                 DD.d(TAG, "onSuccess(), result: " + jsonObjectResult);
 
-                final StatusResultEntity resultEntity = JSON.parseObject(jsonObjectResult.toString(),
-                        StatusResultEntity.class);
+                final StatusResultEntity resultEntity = JSON
+                        .parseObject(jsonObjectResult.toString(), StatusResultEntity.class);
                 if ("0".equals(resultEntity.getStatus())) {
                     ParagraphCommentEntity commentEntity = new ParagraphCommentEntity();
-                    commentEntity.setReplyUserisAnonymous(PrefUtil
-                            .getIntValue(Config.PREF_IS_ANONYMOUS));
+                    commentEntity.setReplyUserisAnonymous(
+                            PrefUtil.getIntValue(Config.PREF_IS_ANONYMOUS));
                     commentEntity.setReplyUserId(PrefUtil.getIntValue(Config.PREF_USER_ID));
                     commentEntity.setReplyContent(userContent);
                     commentEntity.setParagraphReplyId(paragraphEntity.getParagraphReplyId());
-                    commentEntity.setReplyUserPic(commentEntity.getReplyUserisAnonymous() == 1 ? ""
-                            : PrefUtil.getStringValue(Config.PREF_AVATAR_NAME));
-                    commentEntity.setReplyUserNickname(PrefUtil
-                            .getStringValue(Config.PREF_NICKNAME));
+                    commentEntity.setReplyUserPic(
+                            commentEntity.getReplyUserisAnonymous() == 1 ? "" : PrefUtil
+                                    .getStringValue(Config.PREF_AVATAR_NAME));
+                    commentEntity
+                            .setReplyUserNickname(PrefUtil.getStringValue(Config.PREF_NICKNAME));
                     commentEntity.setCreateTime(CommonUtil.getDefaultFormatCurrentTime());
                     commentEntity.setLocation(CommonUtil.getUserLocation());
                     listComment.add(0, commentEntity);
@@ -992,7 +996,8 @@ public class ContrastListAdapter extends BaseAdapter {
         return true;
     }
 
-    protected void setLayoutStyleAndContent(int orientation, final ViewHolder holder, final ParagraphEntity entity) {
+    protected void setLayoutStyleAndContent(int orientation, final ViewHolder holder,
+                                            final ParagraphEntity entity) {
         // 设置图片及蒙板
         if (entity.hasSeened) {
             holder.llMaskContainer.setVisibility(View.GONE);
@@ -1012,9 +1017,9 @@ public class ContrastListAdapter extends BaseAdapter {
             if (entity.getParagraphScore() > 600) {
                 holder.ivZuire.setVisibility(View.VISIBLE);
             }
-//			else if (entity.getContrastSelect() == 1) {
-//				holder.ivJingxuan.setVisibility(View.VISIBLE);
-//			}
+            //			else if (entity.getContrastSelect() == 1) {
+            //				holder.ivJingxuan.setVisibility(View.VISIBLE);
+            //			}
             // 原创
             if (mContent.contains(Config.PATTERN_MARK_ORIGINAL)) {
                 holder.ivYuanchuang.setVisibility(View.VISIBLE);
@@ -1155,10 +1160,10 @@ public class ContrastListAdapter extends BaseAdapter {
                                 bitmap = ((BitmapDrawable) drawable).getBitmap();
 
                                 if (maskOrientation == LinearLayout.HORIZONTAL) {
-                                    overlay = Bitmap.createBitmap(
-                                            (int) (bitmap.getWidth() / 2f / 32f),
-                                            (int) (bitmap.getHeight() / 32f),
-                                            Bitmap.Config.ARGB_8888);
+                                    overlay = Bitmap
+                                            .createBitmap((int) (bitmap.getWidth() / 2f / 32f),
+                                                    (int) (bitmap.getHeight() / 32f),
+                                                    Bitmap.Config.ARGB_8888);
                                 } else {
                                     overlay = Bitmap.createBitmap((int) (bitmap.getWidth() / 32f),
                                             (int) (bitmap.getHeight() / 2f / 32f),
@@ -1216,7 +1221,9 @@ public class ContrastListAdapter extends BaseAdapter {
     }
 
     private void setUpDesContent(ViewHolder holder, ParagraphEntity entity, String[] arrContent) {
-        if (arrContent == null) return;
+        if (arrContent == null) {
+            return;
+        }
         // 设置描述
         DD.d(TAG, "desc1: " + arrContent[0] + ", desc2: " + arrContent[1]);
         parseDesc(arrContent[0], holder.tvDesc1, holder.ivUrlFlag1, entity);
@@ -1231,7 +1238,9 @@ public class ContrastListAdapter extends BaseAdapter {
     }
 
     private void setUpDesColors(ViewHolder holder, ParagraphEntity entity, String[] arrContent) {
-        if (arrContent == null) return;
+        if (arrContent == null) {
+            return;
+        }
         // 优化速度
         holder.desc2 = arrContent[1];
         DD.d(TAG, "colorA: " + arrContent[2] + ", colorB: " + arrContent[3]);
@@ -1458,7 +1467,8 @@ public class ContrastListAdapter extends BaseAdapter {
     }
 
     private int getGrayLevel(int color) {
-        return (int) (Color.red(color) * 0.299 + Color.green(color) * 0.587 + Color.blue(color) * 0.114);
+        return (int) (Color.red(color) * 0.299 + Color.green(color) * 0.587
+                + Color.blue(color) * 0.114);
     }
 
     /**
@@ -1510,9 +1520,9 @@ public class ContrastListAdapter extends BaseAdapter {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ssDesc.setSpan(new TextAppearanceSpan(tvDesc.getContext(), R.style.style_desc_comment),
                     splitIndex1 + 1, s1s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ssDesc.setSpan(new ForegroundColorSpan(
-                    tvDesc.getCurrentTextColor() & 0x00ffffff | 0x99000000), splitIndex1 + 1, s1s2
-                    .length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssDesc.setSpan(
+                    new ForegroundColorSpan(tvDesc.getCurrentTextColor() & 0x00ffffff | 0x99000000),
+                    splitIndex1 + 1, s1s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvDesc.setText(ssDesc, TextView.BufferType.SPANNABLE);
         } else if (matcherCommentUrl2.find()) {
             final String s1 = matcherCommentUrl2.group(1);
@@ -1542,9 +1552,9 @@ public class ContrastListAdapter extends BaseAdapter {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ssDesc.setSpan(new TextAppearanceSpan(tvDesc.getContext(), R.style.style_desc_comment),
                     splitIndex1 + 1, s1s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ssDesc.setSpan(new ForegroundColorSpan(
-                    tvDesc.getCurrentTextColor() & 0x00ffffff | 0x99000000), splitIndex1 + 1, s1s2
-                    .length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssDesc.setSpan(
+                    new ForegroundColorSpan(tvDesc.getCurrentTextColor() & 0x00ffffff | 0x99000000),
+                    splitIndex1 + 1, s1s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvDesc.setText(ssDesc, TextView.BufferType.SPANNABLE);
         } else if (matcherComment.find()) { // 匹配注释
             int splitIndex = desc.indexOf("*");
@@ -1561,9 +1571,9 @@ public class ContrastListAdapter extends BaseAdapter {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             ssDesc.setSpan(new TextAppearanceSpan(tvDesc.getContext(), R.style.style_desc_comment),
                     splitIndex + 1, s1s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ssDesc.setSpan(new ForegroundColorSpan(
-                    tvDesc.getCurrentTextColor() & 0x00ffffff | 0x99000000), splitIndex + 1, s1s2
-                    .length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ssDesc.setSpan(
+                    new ForegroundColorSpan(tvDesc.getCurrentTextColor() & 0x00ffffff | 0x99000000),
+                    splitIndex + 1, s1s2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvDesc.setText(ssDesc, TextView.BufferType.SPANNABLE);
         } else if (matcherUrl.find()) { // 匹配url
             int splitIndex = desc.indexOf(Config.PATTERN_ADD_HREF);
@@ -1706,8 +1716,8 @@ public class ContrastListAdapter extends BaseAdapter {
             public void onSuccess(JSONObject result) {
                 DD.d(TAG, "onSuccess(), result: " + result.toString());
 
-                LikeParagraphResultEntity resultEntity = JSON.parseObject(result.toString(),
-                        LikeParagraphResultEntity.class);
+                LikeParagraphResultEntity resultEntity = JSON
+                        .parseObject(result.toString(), LikeParagraphResultEntity.class);
 
                 if ("0".equals(resultEntity.getStatus())) {
                     ParagraphEntity paragraphEntity = entity;
@@ -1765,8 +1775,8 @@ public class ContrastListAdapter extends BaseAdapter {
             public void onSuccess(JSONObject result) {
                 DD.d(TAG, "onSuccess(), result: " + result.toString());
 
-                DislikeParagraphResultEntity resultEntity = JSON.parseObject(result.toString(),
-                        DislikeParagraphResultEntity.class);
+                DislikeParagraphResultEntity resultEntity = JSON
+                        .parseObject(result.toString(), DislikeParagraphResultEntity.class);
                 if ("0".equals(resultEntity.getStatus())) {
                     ParagraphEntity paragraphEntity = entity;
                     paragraphEntity.setComplaintState(resultEntity.getComplaint());
@@ -1841,8 +1851,8 @@ public class ContrastListAdapter extends BaseAdapter {
             public void onSuccess(JSONObject result) {
                 DD.d(TAG, "onSuccess(), result: " + result.toString());
 
-                StatusResultEntity entity = JSON.parseObject(result.toString(),
-                        StatusResultEntity.class);
+                StatusResultEntity entity = JSON
+                        .parseObject(result.toString(), StatusResultEntity.class);
                 if ("0".equals(entity.getStatus())) {
                     TT.show(context, "举报成功");
                 }
@@ -1886,12 +1896,13 @@ public class ContrastListAdapter extends BaseAdapter {
             public void onSuccess(JSONObject result) {
                 DD.d(TAG, "onSuccess(), result: " + result.toString());
 
-                StatusResultEntity entity = JSON.parseObject(result.toString(),
-                        StatusResultEntity.class);
+                StatusResultEntity entity = JSON
+                        .parseObject(result.toString(), StatusResultEntity.class);
                 if ("0".equals(entity.getStatus())) {
                     list.remove(position);
                     notifyDataSetChanged();
-                    DD.d("还剩几条....................................................................", list.size());
+                    DD.d("还剩几条....................................................................",
+                            list.size());
                 }
             }
         });

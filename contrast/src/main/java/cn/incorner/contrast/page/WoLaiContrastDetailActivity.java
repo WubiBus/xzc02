@@ -205,6 +205,7 @@ public class WoLaiContrastDetailActivity extends BaseActivity
         intent.setClass(this, PostActivity.class);
         //如果传的是 paragraph2 的话就是 我来
         intent.putExtra("paragraph2", mEntity);
+        intent.putExtra("hasSeries", true);
         startActivityForResult(intent, MainActivity.REQUEST_CODE_POST);
     }
 
