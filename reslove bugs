@@ -1,0 +1,133 @@
+[33mcommit 0463b58236fc08a0962d62c384e6e1cc25a9805b[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Dec 24 14:44:03 2016 +0800
+
+    reslove bugs
+
+[33mcommit 0ad2d72e7852a6646154969ef10050a0f9546587[m
+Author: chaochao101 <1025263756@qq.com>
+Date:   Thu Dec 22 17:49:38 2016 +0800
+
+    update UI and BUG
+
+[33mcommit 167435cc7a2f8851f0668297c0d9a3c6f0186133[m
+Merge: 8916c4f 954aa77
+Author: chaochao101 <1025263756@qq.com>
+Date:   Sun Dec 18 01:27:09 2016 +0800
+
+    Merge branch 'master' of https://github.com/WubiBus/xzc02
+
+[33mcommit 8916c4f8ec980307c5b0a42333e953ad2c5cd4a6[m
+Author: chaochao101 <1025263756@qq.com>
+Date:   Sun Dec 18 01:21:17 2016 +0800
+
+    hhh
+
+[33mcommit 332aca784d95705aebfcda0ea8d7db6510f578c6[m
+Author: chaochao101 <1025263756@qq.com>
+Date:   Sun Dec 18 00:54:53 2016 +0800
+
+    updata
+
+[33mcommit 954aa77830f7e77717f66bd9c746dc3132263332[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Thu Dec 15 12:36:35 2016 +0800
+
+    add toast remind network error
+
+[33mcommit 39ad4ebc08bbc6d5fa0d0f4f5a88d37a4b2cd879[m
+Merge: ea48240 56be493
+Author: xuzhichao <1025263756@qq.com>
+Date:   Mon Dec 5 10:14:46 2016 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit ea4824047f76db6332cf82f2d59efbc038efc11f[m
+Author: xuzhichao <1025263756@qq.com>
+Date:   Mon Dec 5 10:04:41 2016 +0800
+
+    update
+
+[33mcommit 56be4938ca34426a982999786e08577ddcf83925[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Wed Nov 23 13:27:10 2016 +0800
+
+    log times
+
+[33mcommit c51a60da618cd3ea3f2a9fb76b659050e4440e67[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Wed Nov 23 13:21:51 2016 +0800
+
+    log times
+
+[33mcommit 292a7931631a4cb2e12ff5c070b4a1d360410469[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Wed Nov 23 13:05:11 2016 +0800
+
+    commit xutils commit params method
+
+[33mcommit c8b7f7ab6e1b0a13683eec83b39f364b96765fef[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Mon Nov 21 17:52:51 2016 +0800
+
+    recode
+
+[33mcommit 889efcae0112239d3a28b7c6ff1e39ec538ee411[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 19:40:32 2016 +0800
+
+    fix circle bugs
+
+[33mcommit f09c71ffd0a95785ddeb7910b9c13b7dabc3935b[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 17:43:37 2016 +0800
+
+    complete 1.6 requires
+
+[33mcommit 00ae588630219683ce31b8ead679980366d8e6ad[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 16:52:30 2016 +0800
+
+    log 1.5 tiems
+
+[33mcommit c939e45a28910d07060a5266b30fd1867e2c8d75[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 16:33:29 2016 +0800
+
+    log times
+
+[33mcommit 00836fd6b582514bec1ed119eabd3d7f5a3bb2fd[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 16:31:06 2016 +0800
+
+    add time xls
+
+[33mcommit 8212219fdf8cf7e318c5b5a94bd3d7887546630f[m
+Author: xuzhichao <1025263756@qq.com>
+Date:   Sat Nov 19 16:01:04 2016 +0800
+
+    aaa
+
+[33mcommit c4e915c29a48f26e72ea7aed75eb5ad4c0eb58de[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 15:50:41 2016 +0800
+
+    revised git file
+
+[33mcommit 36d37d5ee0f3c32d329e558ed86da253fd5c1a69[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 15:30:07 2016 +0800
+
+    delete grable wapper
+
+[33mcommit 9fb27570951d4b0709b74ef595f991e59c1c545e[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 15:25:53 2016 +0800
+
+    revised git file
+
+[33mcommit 11231ab8a9c6849099dc4461be1c47cad9bdc63c[m
+Author: burt.yang <burt.yang@pwc.com>
+Date:   Sat Nov 19 14:32:16 2016 +0800
+
+    init code

@@ -332,13 +332,6 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		init(savedInstanceState);
 		loadData();
 
-		//从PersonDetailFragment页面跳转过来的
-//		Intent setIntent = getIntent();
-//		String shezhi = setIntent.getStringExtra("haha");
-//		if(!TextUtils.isEmpty(shezhi)) {
-//			//显示个人面板
-//			showUserBoard();
-//		}
 	}
 
 	@Override
@@ -435,6 +428,9 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			llMainNavContainer.setVisibility(View.VISIBLE);
 			hsvCategoryContainer2.setVisibility(View.GONE);
 
+			//清空回退栈
+			getSupportFragmentManager().popBackStack();
+
 			//隐藏页面名字和新的返回键
 			pageName.setVisibility(View.GONE);
 			newRlBack.setVisibility(View.GONE);
@@ -442,21 +438,21 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			setMainNavSelector(R.id.tv_selected);
 			rlAllFindBoard.setVisibility(View.GONE);
 			// 设置fragment
-			if (fragPersonDetail.isAdded()) {
+			if (fragMain.isAdded()) {
 				if(fragMain.isVisible()){
 					fragMain.refreshData();
 				}else{
-					fmManager.beginTransaction().show(fragMain).hide(fragPersonDetail).hide(fragMine)
+					fmManager.beginTransaction().show(fragMain).hide(fragPersonDetail).addToBackStack(null)
 							.commitAllowingStateLoss();
 				}
 			} else {
 				if(fragMain.isVisible()){
 					fragMain.refreshData();
 				}else{
-					fmManager.beginTransaction().show(fragMain).commitAllowingStateLoss();
+					fmManager.beginTransaction().show(fragMain).hide(fragPersonDetail).commitAllowingStateLoss();
 				}
 			}
-		} else {
+		} else if(page == FRAG_PERSON_FLAG){
 			/*rlLeft.setSelected(false);
 			rlRight.setSelected(true);
 			llMainNavContainer.setVisibility(View.GONE);
@@ -483,9 +479,23 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 						.commitAllowingStateLoss();
 			} else {
 				fmManager.beginTransaction().add(R.id.fl_container, fragPersonDetail, FRAG_PERSON_TAG)
-						.show(fragPersonDetail).hide(fragMain).hide(fragMine).commitAllowingStateLoss();
+						.show(fragPersonDetail).hide(fragMain).hide(fragMine).addToBackStack(null).commitAllowingStateLoss();
 			}
-
+		} else {
+			rlLeft.setSelected(false);
+			rlRight.setSelected(true);
+			llMainNavContainer.setVisibility(View.GONE);
+			hsvCategoryContainer2.setVisibility(View.GONE);
+			rlAllFindBoard.setVisibility(View.GONE);
+			llTopContainer.setVisibility(View.GONE);
+			// 设置fragment
+			if (fragMine.isAdded()) {
+				fmManager.beginTransaction().show(fragMine).hide(fragMain).hide(fragPersonDetail).addToBackStack(null)
+						.commitAllowingStateLoss();
+			} else {
+				fmManager.beginTransaction().add(R.id.fl_container, fragPersonDetail, FRAG_PERSON_TAG)
+						.show(fragMine).hide(fragMain).hide(fragPersonDetail).commitAllowingStateLoss();
+			}
 		}
 	}
 
@@ -1746,7 +1756,6 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			finish();
 			return;
 		}
-
 		switchPage(FRAG_PERSON_FLAG);
 		/*if (fragMine != null && fragMine.isVisible()) {
 			fragMine.scrollTop();
@@ -2815,5 +2824,4 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 		switchPage(FRAG_MAIN_FLAG);
 		showUserBoard();
 	}
-
 }

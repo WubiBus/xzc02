@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/ll_nav_container"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -70,7 +70,7 @@
         android:id="@+id/mulit_tl_users"
         style="@style/mulit_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:paddingLeft="8dp"
         app:paddingStart="5dp"
         app:tabIndicatorColor="@android:color/transparent"/>
@@ -89,21 +89,19 @@
         <ImageView
             android:id="@+id/mulit_iv_arrow_left"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/left"
+            android:background="@drawable/left"
             />
 
         <ImageView
             android:id="@+id/mulit_iv_arrow_right"
             android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_gravity="center_vertical|right"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@drawable/right"
+            android:layout_height="40dp"
+            android:background="@drawable/right"
             />
     </FrameLayout>
 

@@ -1009,6 +1009,4 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-
-
 }

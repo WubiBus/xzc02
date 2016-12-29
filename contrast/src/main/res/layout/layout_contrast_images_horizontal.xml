@@ -7,13 +7,12 @@
     android:layout_marginLeft="2dp"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="20dp"
-    android:paddingTop="8dp">
+    android:paddingBottom="5dp"
+    >
 
     <!--多个版本用户信息-->
     <LinearLayout
         android:paddingLeft="16dp"
-        android:paddingTop="2dp"
         android:paddingBottom="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -1073,9 +1072,9 @@
     <!-- 下阴影 -->
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="3dp"
         android:background="#11000000"/>
 
     <!-- 标签 -->
