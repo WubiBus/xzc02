@@ -6,14 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.transition.Transition;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,7 +20,6 @@ import org.xutils.common.Callback;
 import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
@@ -49,7 +41,6 @@ import cn.incorner.contrast.util.CommonUtil;
 import cn.incorner.contrast.util.DD;
 import cn.incorner.contrast.util.PrefUtil;
 import cn.incorner.contrast.view.CircleImageView;
-import cn.incorner.contrast.view.CustomRefreshFramework;
 
 /**
  * Created by Chao on 2016/11/26.
@@ -165,108 +156,45 @@ public class PersonDetailFragment extends BaseFragment {
         llGuanZhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /*getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)  //将当前fragment加入到返回栈中
-                        .replace(R.id.fl_container, new MineFragment()).commit();*/
-                MineFragment mineFragment = new MineFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fl_container, mineFragment);
-                ft.addToBackStack(null);
-                Bundle bundle = new Bundle();
-                bundle.putInt("key",3);
-                mineFragment.setArguments(bundle);
-                ft.commit();
+                ((MainActivity) getActivity()).switchToMineFragAndLoadSpecifiedTypeData(
+                        MineFragment.MY_FOLLOWING_USER);
+                MainActivity.LAST_PAGE = MineFragment.MY_FOLLOWING_USER;
             }
         });
 
         llDaZuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /*getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)  //将当前fragment加入到返回栈中
-                        .replace(R.id.fl_container, new MineFragment()).commit();*/
-
-                MineFragment mineFragment = new MineFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fl_container, mineFragment);
-                ft.addToBackStack(null);
-                Bundle bundle = new Bundle();
-                bundle.putInt("key",1);
-                mineFragment.setArguments(bundle);
-                ft.commit();
-
+                ((MainActivity) getActivity()).switchToMineFragAndLoadSpecifiedTypeData(
+                        MineFragment.MY_PARAGRAPH);
+                MainActivity.LAST_PAGE = MineFragment.MY_PARAGRAPH;
             }
         });
 
         llXiHuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /*getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)  //将当前fragment加入到返回栈中
-                        .replace(R.id.fl_container, new MineFragment()).commit();*/
-
-                MineFragment mineFragment = new MineFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fl_container, mineFragment);
-                ft.addToBackStack(null);
-                Bundle bundle = new Bundle();
-                bundle.putInt("key",2);
-                mineFragment.setArguments(bundle);
-                ft.commit();
-
+                ((MainActivity) getActivity()).switchToMineFragAndLoadSpecifiedTypeData(
+                        MineFragment.MY_LIKE_PARAGRAPH);
+                MainActivity.LAST_PAGE = MineFragment.MY_LIKE_PARAGRAPH;
             }
         });
 
         llFenSi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-               /* getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)  //将当前fragment加入到返回栈中
-                        .replace(R.id.fl_container, new MineFragment()).commit();*/
-
-                MineFragment mineFragment = new MineFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fl_container, mineFragment);
-                ft.addToBackStack(null);
-                Bundle bundle = new Bundle();
-                bundle.putInt("key",5);
-                mineFragment.setArguments(bundle);
-                ft.commit();
-
+                ((MainActivity) getActivity()).switchToMineFragAndLoadSpecifiedTypeData(
+                        MineFragment.MY_FOLLOWER_USER);
+                MainActivity.LAST_PAGE = MineFragment.MY_FOLLOWER_USER;
             }
         });
 
         llHuaTi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /*getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)  //将当前fragment加入到返回栈中
-                        .replace(R.id.fl_container, new MineFragment()).commit();*/
-
-                MineFragment mineFragment = new MineFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.fl_container, mineFragment);
-                ft.addToBackStack(null);
-                Bundle bundle = new Bundle();
-                bundle.putInt("key",4);
-                mineFragment.setArguments(bundle);
-                ft.commit();
-
+                ((MainActivity) getActivity()).switchToMineFragAndLoadSpecifiedTypeData(
+                        MineFragment.MY_ALL_TOPIC);
+                MainActivity.LAST_PAGE = MineFragment.MY_ALL_TOPIC;
             }
         });
 
@@ -280,7 +208,7 @@ public class PersonDetailFragment extends BaseFragment {
                 //int haha = 1;
                 //intent.putExtra("haha","设置");
                 //getContext().startActivity(intent);
-                ((MainActivity)getActivity()).onSettingClick();
+                ((MainActivity) getActivity()).onSettingClick();
             }
         });
 
@@ -288,7 +216,7 @@ public class PersonDetailFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setClass(getContext(),MessageActivity.class);
+                intent.setClass(getContext(), MessageActivity.class);
                 getContext().startActivity(intent);
             }
         });
@@ -298,9 +226,38 @@ public class PersonDetailFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //跳转到设置页面
-                ((MainActivity)getActivity()).onSettingClick();
+                ((MainActivity) getActivity()).onSettingClick();
             }
         });
+
+        // 如果上次页面停留在以下相应页面，则此次切换进行恢复
+        switch (MainActivity.LAST_PAGE) {
+            case MineFragment.MY_FOLLOWING_USER: {
+                llGuanZhu.performClick();
+                MainActivity.LAST_PAGE = MineFragment.MY_FOLLOWING_USER;
+            }
+            break;
+            case MineFragment.MY_PARAGRAPH: {
+                llDaZuo.performClick();
+                MainActivity.LAST_PAGE = MineFragment.MY_PARAGRAPH;
+            }
+            break;
+            case MineFragment.MY_LIKE_PARAGRAPH: {
+                llXiHuan.performClick();
+                MainActivity.LAST_PAGE = MineFragment.MY_LIKE_PARAGRAPH;
+            }
+            break;
+            case MineFragment.MY_FOLLOWER_USER: {
+                llFenSi.performClick();
+                MainActivity.LAST_PAGE = MineFragment.MY_FOLLOWER_USER;
+            }
+            break;
+            case MineFragment.MY_ALL_TOPIC: {
+                llHuaTi.performClick();
+                MainActivity.LAST_PAGE = MineFragment.MY_ALL_TOPIC;
+            }
+            break;
+        }
     }
 
     /**
@@ -377,7 +334,7 @@ public class PersonDetailFragment extends BaseFragment {
                 tvContact.setText(userInfoEntity.getEmail());
                 tvContrastAmount.setText(String.valueOf(userInfoEntity.getParagraphCount()) + "幅大作");
                 tvFollowerAmount.setText(String.valueOf(userInfoEntity.getFollowerCount()) + "关注");
-                tvScoreAmount.setText( "积分" + String.valueOf(userInfoEntity.getScore()));
+                tvScoreAmount.setText("积分" + String.valueOf(userInfoEntity.getScore()));
 
                 //关注
                 tvGuanzhuCount.setText(String.valueOf(userInfoEntity.getFollowCount()));
@@ -385,7 +342,7 @@ public class PersonDetailFragment extends BaseFragment {
                 tvDazuoCount.setText(String.valueOf(userInfoEntity.getParagraphCount()));
                 //粉丝
                 tvFensiCount.setText(String.valueOf(userInfoEntity.getFollowerCount()));
-               // loadCircleData(userInfoEntity);
+                // loadCircleData(userInfoEntity);
             }
         });
 
@@ -414,7 +371,7 @@ public class PersonDetailFragment extends BaseFragment {
 
             @Override
             public void onFinished() {
-               // crlContainer.setRefreshing(false);
+                // crlContainer.setRefreshing(false);
             }
 
             @Override
