@@ -324,6 +324,7 @@ public class PersonDetailFragment extends BaseFragment {
                             public void onSuccess(Drawable drawable) {
                                 DD.d(TAG, "onSuccess()");
                                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                                //加载头像
                                 civHead.setImageBitmap(bitmap);
                             }
                         });
