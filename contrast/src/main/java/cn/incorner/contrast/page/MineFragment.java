@@ -77,6 +77,9 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 	@ViewInject(R.id.gv_content)
 	private HeaderFooterGridView gvContent;
 
+	//页面标识符
+	public static int LASTPAGE = 0;
+
 
 	//添加关注的布局
 	@ViewInject(R.id.tv_main_mine)
@@ -166,6 +169,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 			public void onRefreshFinish() {
 				switch (currentPage) {
 				case 1:
+					LASTPAGE = currentPage;
 					String text1 = "我的大作";
 					//onMyParagraphClick();
 					//pageName.setVisibility(View.VISIBLE);
@@ -180,6 +184,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					((IRefreshingAnimationView) getActivity()).hideRefreshingAnimationView();
 					break;
 				case 2:
+					LASTPAGE = currentPage;
 					String text2 = "我喜欢的";
 					activity.updateName(text2);
 					activity.showPageName();
@@ -191,6 +196,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					myLikeParagraphAdapter.notifyDataSetChanged();
 					break;
 				case 3:
+					LASTPAGE = currentPage;
 					String text3 = "我的关注";
 					activity.updateName(text3);
 					activity.showPageName();
@@ -202,6 +208,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					myFollowingUserAdapter.notifyDataSetChanged();
 					break;
 				case 4:
+					LASTPAGE = currentPage;
 					String text4 = "我的话题";
 					activity.updateName(text4);
 					activity.showPageName();
@@ -213,6 +220,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
 					myAllTopicAdapter.notifyDataSetChanged();
 					break;
 				case 5:
+					LASTPAGE = currentPage;
 					String text5 = "我的粉丝";
 					activity.updateName(text5);
 					activity.showPageName();

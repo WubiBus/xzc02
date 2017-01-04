@@ -130,6 +130,8 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 	// 发布
 	public static final int REQUEST_CODE_POST = 4;
 
+
+
 	@ViewInject(R.id.rl_root)
 	private RelativeLayout rlRoot;
 	@ViewInject(R.id.fl_container)
@@ -473,6 +475,9 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			hsvCategoryContainer2.setVisibility(View.GONE);
 			rlAllFindBoard.setVisibility(View.GONE);
 			llTopContainer.setVisibility(View.GONE);
+
+
+
 			// 设置fragment
 			if (fragPersonDetail.isAdded()) {
 				fmManager.beginTransaction().show(fragPersonDetail).hide(fragMain).hide(fragMine)
@@ -1756,7 +1761,24 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
 			finish();
 			return;
 		}
+		switch (fragMine.LASTPAGE){
+
+			// TODO: 2016/12/30 暂时写的，用来实验跳转 
+			case 1:
+				MineFragment mineFragment = new MineFragment();
+				FragmentManager fm = getSupportFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+				ft.replace(R.id.fl_container, mineFragment);
+				ft.addToBackStack(null);
+				Bundle bundle = new Bundle();
+				bundle.putInt("key",1);
+				mineFragment.setArguments(bundle);
+				ft.commit();
+				break;
+		}
+
 		switchPage(FRAG_PERSON_FLAG);
+
 		/*if (fragMine != null && fragMine.isVisible()) {
 			fragMine.scrollTop();
 		}*/

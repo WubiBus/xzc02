@@ -289,7 +289,7 @@ public class WoLaiContrastDetailActivity extends BaseActivity
     }
 
     /**
-     * 点击qq
+     * 点击分享
      */
     private void shareAll(ParagraphEntity entity) {
         final String title = entity.getUserNickname() + "的大作";

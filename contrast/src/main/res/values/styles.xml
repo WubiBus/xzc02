@@ -179,8 +179,8 @@
 
     <style name="mulit_tab_layout" parent="Base.Widget.Design.TabLayout">
         <item name="android:tabStripEnabled">false</item>
-        <item name="tabPaddingStart">5dp</item>
-        <item name="tabPaddingEnd">5dp</item>
+        <item name="tabPaddingStart">2dp</item>
+        <item name="tabPaddingEnd">2dp</item>
     </style>
 
     <style name="common_horizontal_division_line_style">
