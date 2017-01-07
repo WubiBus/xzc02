@@ -75,6 +75,7 @@ import cn.incorner.contrast.data.entity.ParagraphEntity;
 import cn.incorner.contrast.data.entity.StatusResultEntity;
 import cn.incorner.contrast.page.ContrastCommentActivity;
 import cn.incorner.contrast.page.LoginTransitionActivity;
+import cn.incorner.contrast.page.MainActivity;
 import cn.incorner.contrast.page.MyParagraphActivity;
 import cn.incorner.contrast.page.PostActivity;
 import cn.incorner.contrast.page.TopicSpecifiedListActivity;

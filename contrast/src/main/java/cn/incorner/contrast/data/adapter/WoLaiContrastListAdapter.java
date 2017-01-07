@@ -44,6 +44,12 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         mResultColor = resultColor;
     }
 
+    public void updateEntity(ParagraphEntity entity){
+        list.clear();
+        list.add(entity);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         mView = super.getView(position, convertView, parent);
