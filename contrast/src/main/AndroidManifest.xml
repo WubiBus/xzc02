@@ -62,6 +62,8 @@
             android:windowSoftInputMode="adjustPan" />
         <!-- 创作 页面 -->
         <activity android:name=".page.PostActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity android:name=".page.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".page.PopWindowSelectCaremer"
             android:screenOrientation="portrait"

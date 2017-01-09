@@ -263,11 +263,8 @@ public class WoLaiContrastDetailActivity extends BaseActivity
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             ParagraphEntity entity = mParagraphEntitylist.get(position);
-            ParagraphEntity entityShow = mAdapter.getData().get(0);
-            entityShow.setOriginName(entity.getOriginName());
-            entityShow.setOriginAuthor(entity.getOriginAuthor());
-            entityShow.setCreateTime(entity.getCreateTime());
-            mAdapter.notifyDataSetChanged();
+            entity.hasSeened = true;
+            mAdapter.updateEntity(entity);
         }
 
         @Override
