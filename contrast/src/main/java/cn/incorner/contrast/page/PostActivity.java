@@ -591,10 +591,11 @@ public class PostActivity extends BaseFragmentActivity {
             String sTopic = "";
             int size = listTag.size();
             for (int i = 0; i < size; ++i) {
-                if (i == size - 1) {
-                    sTopic += listTag.get(i);
+                if (i == size-1) {
+                    // TODO: 2017/1/7 重要BUG 
+                    sTopic = listTag.get(i);
                 } else {
-                    sTopic += listTag.get(i) + "，";
+                    sTopic = listTag.get(i) + "，";
                 }
             }
             DD.d(TAG, "sTopic: " + sTopic);
