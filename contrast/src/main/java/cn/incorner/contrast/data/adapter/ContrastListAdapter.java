@@ -138,7 +138,7 @@ public class ContrastListAdapter extends BaseAdapter {
     protected ArrayList<ParagraphEntity> list;
     private LayoutInflater inflater;
     private OnClickListener listener;
-    private Context context;
+    protected Context context;
     private OnDescClickListener onDescClickListener;
     private OnCommentClickListener onCommentClickListener;
     private OnSharePlatformClickListener onSharePlatformClickListener;
@@ -421,11 +421,7 @@ public class ContrastListAdapter extends BaseAdapter {
         if (holder.llComment != null) {
             holder.llComment.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setClass(context, ContrastCommentActivity.class);
-                    intent.putExtra("paragraph", entity);
-                    intent.putExtra("hasFocus", true);
-                    BaseActivity.sGotoActivity(context, intent);
+                    onClickAddComment(entity);
                 }
             });
         }
@@ -529,6 +525,14 @@ public class ContrastListAdapter extends BaseAdapter {
                 }
             });
         }
+    }
+
+    protected void onClickAddComment(ParagraphEntity entity) {
+        Intent intent = new Intent();
+        intent.setClass(context, ContrastCommentActivity.class);
+        intent.putExtra("paragraph", entity);
+        intent.putExtra("hasFocus", true);
+        BaseActivity.sGotoActivity(context, intent);
     }
 
     protected void setUpAdjustUIBySelf(int userId, ViewHolder holder, ParagraphEntity entity) {
