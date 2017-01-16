@@ -1,6 +1,5 @@
 package cn.incorner.contrast.data.adapter;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
@@ -16,8 +15,6 @@ import java.util.List;
 import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.R;
 import cn.incorner.contrast.data.entity.ParagraphEntity;
-import cn.incorner.contrast.page.ContrastCommentActivity;
-import cn.incorner.contrast.page.WoLaiContrastDetailActivity;
 import cn.incorner.contrast.view.ScrollAbleViewPager;
 
 /**
@@ -39,6 +36,7 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
     private String mOriginAuthor;
     private String mCreateTime;
     private ScrollAbleViewPager mVpMulitText;
+    private onClickItemEventListener mOnClickItemEventListener;
 
     public WoLaiContrastListAdapter(ArrayList<ParagraphEntity> list, BaseActivity baseActivity,
                                     LayoutInflater inflater, View.OnClickListener listener,
@@ -210,12 +208,17 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
 //=======
     @Override
     protected void onClickAddComment(ParagraphEntity entity) {
-        Intent intent = new Intent();
-        intent.setClass(context, ContrastCommentActivity.class);
-        intent.putExtra("paragraph", entity);
-        intent.putExtra("hasFocus", true);
-        mBaseActivity
-                .startActivityForResult(intent, WoLaiContrastDetailActivity.REQUEST_ADD_COMMENT);
+        if (mOnClickItemEventListener != null) {
+            mOnClickItemEventListener.onClickAddComment(entity);
+        }
+    }
+
+    public void setOnClickItemEventListener(onClickItemEventListener onClickItemEventListener) {
+        mOnClickItemEventListener = onClickItemEventListener;
+    }
+
+    public interface onClickItemEventListener {
+        void onClickAddComment(ParagraphEntity entity);
     }
 //>>>>>>> origin/master
 }

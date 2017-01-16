@@ -37,7 +37,9 @@ import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.Config;
 import cn.incorner.contrast.R;
 import cn.incorner.contrast.data.adapter.WoLaiContrastListAdapter;
+import cn.incorner.contrast.data.entity.CommentResultEntity;
 import cn.incorner.contrast.data.entity.MulitVersionEntity;
+import cn.incorner.contrast.data.entity.ParagraphCommentEntity;
 import cn.incorner.contrast.data.entity.ParagraphEntity;
 import cn.incorner.contrast.util.CommonUtil;
 import cn.incorner.contrast.util.DD;
@@ -48,6 +50,7 @@ import cn.incorner.contrast.view.RefreshingAnimationView;
 import cn.incorner.contrast.view.ScrollAbleViewPager;
 import cn.incorner.contrast.view.ScrollListenerListView;
 
+
 /**
  * Created by 超 on 2016/10/4.
  */
@@ -56,7 +59,8 @@ import cn.incorner.contrast.view.ScrollListenerListView;
 public class WoLaiContrastDetailActivity extends BaseActivity
         implements CustomRefreshFramework.OnTouchMoveListener,
                    RefreshingAnimationView.IRefreshingAnimationView, View.OnClickListener,
-                   WoLaiContrastListAdapter.OnViewPageSetUpCallBack, AbsListView.OnScrollListener {
+                   WoLaiContrastListAdapter.OnViewPageSetUpCallBack, AbsListView.OnScrollListener,
+                   WoLaiContrastListAdapter.onClickItemEventListener {
 
     private static final String TAG = "WoLaiContrastDetailActivity";
     public static final int REQUEST_ADD_COMMENT = 200;
@@ -85,6 +89,7 @@ public class WoLaiContrastDetailActivity extends BaseActivity
     private WoLaiContrastListAdapter mAdapter;
     private List<ParagraphEntity> mParagraphEntitylist;
     private ScrollAbleViewPager mViewPager;
+    private ParagraphEntity mClickAddEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +127,7 @@ public class WoLaiContrastDetailActivity extends BaseActivity
         mAdapter = new WoLaiContrastListAdapter(paragraphEntitys, this, getLayoutInflater(), this,
                 mOrientation, mTitleTextColor, mTitleBackColor, mResultTextColor, mResultBackColor);
         mAdapter.setOnViewPageSetUpCallBack(this);
+        mAdapter.setOnClickItemEventListener(this);
         lvContent.setAdapter(mAdapter);
         getParagraphVersionFromServer();
     }
@@ -253,6 +259,16 @@ public class WoLaiContrastDetailActivity extends BaseActivity
                 }
             }
         }
+    }
+
+    @Override
+    public void onClickAddComment(ParagraphEntity entity) {
+        mClickAddEntity = entity;
+        Intent intent = new Intent();
+        intent.setClass(this, ContrastCommentActivity.class);
+        intent.putExtra("paragraph", entity);
+        intent.putExtra("hasFocus", true);
+        startActivityForResult(intent, WoLaiContrastDetailActivity.REQUEST_ADD_COMMENT);
     }
 
     public class MulitTabLayoutChangeListener extends TabLayout.TabLayoutOnPageChangeListener {
@@ -449,10 +465,49 @@ public class WoLaiContrastDetailActivity extends BaseActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == MainActivity.REQUEST_CODE_POST
-                    || requestCode == REQUEST_ADD_COMMENT) {
+            if (requestCode == MainActivity.REQUEST_CODE_POST) {
                 getParagraphVersionFromServer();
+            } else if (requestCode == REQUEST_ADD_COMMENT) {
+                refreshCommentFromServer(mClickAddEntity);
             }
         }
+    }
+
+    public void refreshCommentFromServer(final ParagraphEntity paragraphEntity) {
+        String paragraphReplyId = paragraphEntity.getParagraphReplyId();
+        RequestParams params = new RequestParams(Config.PATH_GET_COMMENTS_BY_PARAGRAPH_REPLY_IDS);
+        params.setAsJsonContent(true);
+        params.addParameter("accessToken", PrefUtil.getStringValue(Config.PREF_ACCESS_TOKEN));
+        params.addParameter("paragraphReplyId", paragraphReplyId);
+        params.addParameter("from", 0);
+        params.addParameter("rows", Config.LOAD_COUNT * 50);
+        params.addParameter("timestamp", CommonUtil.getDefaultFormatCurrentTime());
+        x.http().post(params, new Callback.CommonCallback<JSONObject>() {
+            @Override
+            public void onCancelled(CancelledException arg0) {
+            }
+
+            @Override
+            public void onError(Throwable arg0, boolean arg1) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+
+            @Override
+            public void onSuccess(JSONObject result) {
+                DD.d(TAG, "onSuccess(), result: " + result);
+                final CommentResultEntity entity = JSON
+                        .parseObject(result.toString(), CommentResultEntity.class);
+                if ("0".equals(entity.getStatus())) {
+                    List<ParagraphCommentEntity> listComment = paragraphEntity.getComments();
+                    listComment.clear();
+                    listComment.addAll(entity.getComments());
+                    paragraphEntity.setCommentCount(listComment.size());
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 }
