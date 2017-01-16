@@ -2744,7 +2744,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTouchMoveLis
                 DD.d(TAG, "onSuccess(), 重写的result: " + result.toString());
 
                 // 显示banner
-                BannerResultEntity entity = JSON.parseObject(result.toString(),
+                final BannerResultEntity entity = JSON.parseObject(result.toString(),
                         BannerResultEntity.class);
                 if ("0".equals(entity.getStatus())) {
 

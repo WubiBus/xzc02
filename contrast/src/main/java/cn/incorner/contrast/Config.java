@@ -250,6 +250,8 @@ public class Config {
 	public static final String PATH_GET_BANNER = getApiFullPath("getbanner");
 	// 分享接口
 	public static final String PATH_SHARE = "http://api.honeyshare.cn/index.html?id=";
+	// 新的话题分享接口
+	public static final String PATH_TOP_SHARE = "http://api.honeyshare.cn/webshare/?tags=";
 	// 发送验证码 （上面已经有该接口 “手机号验证（发送短信验证码）”）
 	public static final String PATH_GET_SENDCODE = getApiFullPath("checkphonenumber");
 	// 获取用户私信列表

@@ -282,7 +282,8 @@
                         android:singleLine="false"
                         android:textColor="#ffaaaaaa"
                         android:textColorHint="#ffaaaaaa"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        />
 
                     <cn.incorner.contrast.view.ReboundHorizontalScrollView
                         android:id="@+id/hsv_selected_tag_container"

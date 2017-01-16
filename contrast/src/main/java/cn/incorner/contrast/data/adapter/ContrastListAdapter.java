@@ -102,6 +102,8 @@ import cn.incorner.contrast.view.ScrollListenerListView;
  */
 public class ContrastListAdapter extends BaseAdapter {
 
+    private ViewHolder holder;
+
     private static final String TAG = "ContrastListAdapter";
 
     public final Pattern PATTERN_COMMENT_URL = Pattern
@@ -177,7 +179,8 @@ public class ContrastListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final int userId = PrefUtil.getIntValue(Config.PREF_USER_ID);
-        final ViewHolder holder;
+        // TODO: 2017/1/9 ViewHolder怎么修饰都是没问题的s
+        //final ViewHolder holder;
         if (convertView == null) {
             int itemLayout = getItemLayout();
             convertView = inflater.inflate(itemLayout, null);
@@ -616,7 +619,7 @@ public class ContrastListAdapter extends BaseAdapter {
         }
     }
 
-    protected void setUpTagSection(final ViewHolder holder, ParagraphEntity entity) {
+    protected void setUpTagSection(final ViewHolder holder, final ParagraphEntity entity) {
         // 标签部分
         holder.llTagContainer.removeAllViews();
         String tags = entity.getTags();
@@ -639,6 +642,7 @@ public class ContrastListAdapter extends BaseAdapter {
                         Intent intent = new Intent();
                         intent.setClass(context, TopicSpecifiedListActivity.class);
                         intent.putExtra("topicName", tag);
+                        intent.putExtra("newEntity", entity);
                         if (((Activity) context) instanceof MyParagraphActivity) {
                             intent.putExtra("isUserData", true);
                         }
@@ -2355,5 +2359,17 @@ public class ContrastListAdapter extends BaseAdapter {
                 }).open();
     }
     // 分享相关 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    public Bitmap getSharedCacheBitmap() {
+        Bitmap bitmap;
+        if (holder.llImageContainer.getVisibility() == View.VISIBLE) {
+            holder.llImageContainer.buildDrawingCache();
+            bitmap = holder.llImageContainer.getDrawingCache();
+        } else {
+            holder.ivCompatibleImage.buildDrawingCache();
+            bitmap = holder.ivCompatibleImage.getDrawingCache();
+        }
+        return bitmap;
+    }
 
 }

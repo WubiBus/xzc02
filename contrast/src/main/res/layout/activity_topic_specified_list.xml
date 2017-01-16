@@ -55,6 +55,15 @@
             android:text="xx话题"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/share_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="154dp"
+            android:src="@drawable/fenxianghuati"/>
+
     </LinearLayout>
 
     <!-- 底部布局 -->

@@ -416,6 +416,7 @@ public class PostActivity extends BaseFragmentActivity {
             return;
         }
 
+
         paragraphEntity = getIntent().getParcelableExtra("paragraph");
         if (paragraphEntity == null) {
             // 还原上一次编辑的数据，如果有的话
@@ -487,13 +488,14 @@ public class PostActivity extends BaseFragmentActivity {
     private void initMeRecreateParagraph() {
         DD.d(TAG, "recreateParagraph()");
 
-        // 从“话题列表”页面传过来的话题
-        topicNameFromTopicListPage = getIntent().getStringExtra("topicNameFromTopicListPage");
-        if (!TextUtils.isEmpty(topicNameFromTopicListPage)) {
-            topicNameFromTopicListPage = "#" + topicNameFromTopicListPage + ":@(0)";
-            resumeTag(topicNameFromTopicListPage);
-            return;
-        }
+//        // 从“话题列表”页面传过来的话题
+//        topicNameFromTopicListPage = getIntent().getStringExtra("topicNameFromTopicListPage");
+//        if (!TextUtils.isEmpty(topicNameFromTopicListPage)) {
+//            topicNameFromTopicListPage = "#" + topicNameFromTopicListPage + ":@(0)";
+//            resumeTag(topicNameFromTopicListPage);
+//            return;
+//        }
+
 
         paragraphEntity = getIntent().getParcelableExtra("paragraph2");
         if (paragraphEntity == null) {
@@ -593,9 +595,9 @@ public class PostActivity extends BaseFragmentActivity {
             for (int i = 0; i < size; ++i) {
                 if (i == size-1) {
                     // TODO: 2017/1/7 重要BUG 
-                    sTopic = listTag.get(i);
+                    sTopic += listTag.get(i);
                 } else {
-                    sTopic = listTag.get(i) + "，";
+                    sTopic += listTag.get(i) + "，";
                 }
             }
             DD.d(TAG, "sTopic: " + sTopic);
@@ -1092,7 +1094,7 @@ public class PostActivity extends BaseFragmentActivity {
                         int width2 = hsvSelectedTagContainer.getWidth();
                         if (width1 < width2) {
                             int leftPadding = (width2 - width1) / 2;
-                            llSelectedTagContainer.setPadding(leftPadding, 0, 0, 0);
+                          llSelectedTagContainer.setPadding(leftPadding, 0, 0, 0);
                         } else {
                             llSelectedTagContainer.setPadding(0, 0, 0, 0);
                         }

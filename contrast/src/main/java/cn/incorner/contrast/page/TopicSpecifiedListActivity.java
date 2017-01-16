@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -43,6 +44,7 @@ import cn.incorner.contrast.data.entity.ParagraphEntity;
 import cn.incorner.contrast.data.entity.ParagraphResultEntity;
 import cn.incorner.contrast.util.CommonUtil;
 import cn.incorner.contrast.util.DD;
+import cn.incorner.contrast.util.DensityUtil;
 import cn.incorner.contrast.util.PrefUtil;
 import cn.incorner.contrast.view.CustomRefreshFramework;
 import cn.incorner.contrast.view.CustomRefreshFramework.OnRefreshingListener;
@@ -55,6 +57,9 @@ import com.alibaba.fastjson.JSON;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 /**
  * 指定话题 页面
@@ -91,6 +96,7 @@ public class TopicSpecifiedListActivity extends BaseFragmentActivity implements
 	private List<ParagraphEntity> list = new ArrayList<ParagraphEntity>();
 	private ContrastListAdapter adapter;
 	private String topicName;
+	private ParagraphEntity newEntity;
 	// 是否是（当前）用户的数据
 	private boolean isUserData;
 
@@ -114,7 +120,11 @@ public class TopicSpecifiedListActivity extends BaseFragmentActivity implements
 		super.onCreate(savedInstanceState);
 
 		topicName = getIntent().getStringExtra("topicName");
+		newEntity = getIntent().getParcelableExtra("newEntity");
 		isUserData = getIntent().getBooleanExtra("isUserData", false);
+
+		// TODO: 2017/1/11 BUG 
+		//DD.d(TAG, "主页传来的数据。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。"+ newEntity.getUserNickname());
 		if (TextUtils.isEmpty(topicName)) {
 			finish();
 			return;
@@ -357,6 +367,7 @@ public class TopicSpecifiedListActivity extends BaseFragmentActivity implements
 		finish();
 	}
 
+	//点击参与话题
 	@Event(value = R.id.iv_post)
 	private void onPostClick(View v) {
 		DD.d(TAG, "onPostClick()");
@@ -370,6 +381,11 @@ public class TopicSpecifiedListActivity extends BaseFragmentActivity implements
 		intent.setClass(this, PostActivity.class);
 		intent.putExtra("topicNameFromTopicListPage", topicName);
 		gotoActivity(intent);
+	}
+
+	@Event(value = R.id.share_topic)
+	private void onShareTopicClick(View v) {
+		shareAll(newEntity);
 	}
 
 	// 滚动监听、毛玻璃效果等 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -731,6 +747,58 @@ public class TopicSpecifiedListActivity extends BaseFragmentActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 点击分享
+	 */
+	private void shareAll(ParagraphEntity entity) {
+		String text = java.net.URLEncoder.encode(topicName);
+		final String title = entity.getUserNickname() + "的大作";
+		final String targetUrl = Config.PATH_TOP_SHARE + text;
+		//final String text = getShareText(getDesc(entity.getParagraphContent()));
+		// 设置缩略图
+		Bitmap bitmap = adapter.getSharedCacheBitmap();
+
+		UMImage umTempImage;
+		if (bitmap != null) {
+			bitmap = ThumbnailUtils.extractThumbnail(bitmap, DensityUtil.dip2px(this, 100),
+					DensityUtil.dip2px(this, 100));
+			umTempImage = new UMImage(this, bitmap);
+		} else {
+			umTempImage = new UMImage(this, R.drawable.icon);
+		}
+		final UMImage umImage = umTempImage;
+
+		new ShareAction(this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN,
+				SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA)
+				.setShareboardclickCallback(new ShareBoardlistener() {
+					@Override
+					public void onclick(SnsPlatform arg0, SHARE_MEDIA shareMedia) {
+						if (SHARE_MEDIA.QQ.equals(shareMedia)) {
+							new ShareAction(TopicSpecifiedListActivity.this)
+									.setPlatform(SHARE_MEDIA.QQ).withTitle(title).withText(topicName)
+									.withTargetUrl(targetUrl).withMedia(umImage).share();
+						} else if (SHARE_MEDIA.QZONE.equals(shareMedia)) {
+							new ShareAction(TopicSpecifiedListActivity.this)
+									.setPlatform(SHARE_MEDIA.QZONE).withTitle(title).withText(topicName)
+									.withTargetUrl(targetUrl).withMedia(umImage).share();
+						} else if (SHARE_MEDIA.WEIXIN.equals(shareMedia)) {
+							new ShareAction(TopicSpecifiedListActivity.this)
+									.setPlatform(SHARE_MEDIA.WEIXIN).withTitle(title).withText(topicName)
+									.withTargetUrl(targetUrl).withMedia(umImage).share();
+						} else if (SHARE_MEDIA.WEIXIN_CIRCLE.equals(shareMedia)) {
+							new ShareAction(TopicSpecifiedListActivity.this)
+									.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).withTitle(title).withText(topicName)
+									.withTargetUrl(targetUrl).withMedia(umImage)
+									.share();
+						} else if (SHARE_MEDIA.SINA.equals(shareMedia)) {
+							new ShareAction(TopicSpecifiedListActivity.this)
+									.setPlatform(SHARE_MEDIA.SINA).withText(topicName)
+									.withTargetUrl(targetUrl).withMedia(umImage).share();
+						}
+					}
+				}).open();
 	}
 
 }
