@@ -1,15 +1,5 @@
 package cn.incorner.contrast.page;
 
-import java.util.ArrayList;
-
-import org.json.JSONObject;
-import org.xutils.x;
-import org.xutils.common.Callback.CommonCallback;
-import org.xutils.http.RequestParams;
-import org.xutils.view.annotation.ContentView;
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +14,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.alibaba.fastjson.JSON;
+
+import org.json.JSONObject;
+import org.xutils.common.Callback.CommonCallback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
+import java.util.ArrayList;
+
 import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.Config;
 import cn.incorner.contrast.R;
@@ -43,8 +46,6 @@ import cn.incorner.contrast.view.RefreshingAnimationView;
 import cn.incorner.contrast.view.ScrollListenerListView;
 import cn.incorner.contrast.view.SquareImageView;
 import cn.incorner.contrast.view.SquareLinearLayout;
-
-import com.alibaba.fastjson.JSON;
 
 /**
  * 对比度评论 页面
@@ -267,6 +268,7 @@ public class ContrastCommentActivity extends BaseActivity implements OnTouchMove
 					commentEntity.setLocation(CommonUtil.getUserLocation());
 					listComment.add(0, commentEntity);
 					adapter.notifyDataSetChanged();
+					setResult(RESULT_OK);
 				}
 			}
 		});

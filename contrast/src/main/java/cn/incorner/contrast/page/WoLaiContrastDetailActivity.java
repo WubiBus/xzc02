@@ -59,6 +59,7 @@ public class WoLaiContrastDetailActivity extends BaseActivity
                    WoLaiContrastListAdapter.OnViewPageSetUpCallBack, AbsListView.OnScrollListener {
 
     private static final String TAG = "WoLaiContrastDetailActivity";
+    public static final int REQUEST_ADD_COMMENT = 200;
     private ParagraphEntity mEntity;
     private List<ParagraphEntity> list = new ArrayList<ParagraphEntity>();
     private int mOrientation;
@@ -118,7 +119,7 @@ public class WoLaiContrastDetailActivity extends BaseActivity
         ArrayList paragraphEntitys = new ArrayList();
         mEntity.hasSeened = true;
         paragraphEntitys.add(mEntity);
-        mAdapter = new WoLaiContrastListAdapter(paragraphEntitys, getLayoutInflater(), this,
+        mAdapter = new WoLaiContrastListAdapter(paragraphEntitys, this, getLayoutInflater(), this,
                 mOrientation, mTitleTextColor, mTitleBackColor, mResultTextColor, mResultBackColor);
         mAdapter.setOnViewPageSetUpCallBack(this);
         lvContent.setAdapter(mAdapter);
@@ -448,7 +449,8 @@ public class WoLaiContrastDetailActivity extends BaseActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == MainActivity.REQUEST_CODE_POST) {
+            if (requestCode == MainActivity.REQUEST_CODE_POST
+                    || requestCode == REQUEST_ADD_COMMENT) {
                 getParagraphVersionFromServer();
             }
         }

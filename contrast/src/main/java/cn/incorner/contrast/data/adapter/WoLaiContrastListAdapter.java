@@ -1,5 +1,6 @@
 package cn.incorner.contrast.data.adapter;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.incorner.contrast.BaseActivity;
 import cn.incorner.contrast.R;
 import cn.incorner.contrast.data.entity.ParagraphEntity;
+import cn.incorner.contrast.page.ContrastCommentActivity;
+import cn.incorner.contrast.page.WoLaiContrastDetailActivity;
 import cn.incorner.contrast.view.ScrollAbleViewPager;
 
 /**
@@ -26,6 +30,7 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
     private final ColorStateList mTitleColor;
     private final int mResultBack;
     private final ColorStateList mResultColor;
+    private final BaseActivity mBaseActivity;
     private OnViewPageSetUpCallBack mOnViewPageSetUpCallBack;
     private MulitTextAdapter mAdapter;
     private ViewHolder holder;
@@ -35,16 +40,20 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
     private String mCreateTime;
     private ScrollAbleViewPager mVpMulitText;
 
-    public WoLaiContrastListAdapter(ArrayList<ParagraphEntity> list, LayoutInflater inflater, View.OnClickListener listener, int imageOrientation, ColorStateList titleColor, int titleBack, ColorStateList resultColor, int resultBack) {
+    public WoLaiContrastListAdapter(ArrayList<ParagraphEntity> list, BaseActivity baseActivity,
+                                    LayoutInflater inflater, View.OnClickListener listener,
+                                    int imageOrientation, ColorStateList titleColor, int titleBack,
+                                    ColorStateList resultColor, int resultBack) {
         super(list, inflater, listener);
         mImageOrientation = imageOrientation;
+        mBaseActivity = baseActivity;
         mTitleBack = titleBack;
         mTitleColor = titleColor;
         mResultBack = resultBack;
         mResultColor = resultColor;
     }
 
-    public void updateEntity(ParagraphEntity entity){
+    public void updateEntity(ParagraphEntity entity) {
         list.clear();
         list.add(entity);
         notifyDataSetChanged();
@@ -76,11 +85,11 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         mOriginAuthor = entity.getOriginAuthor();
         tvLocation.setText(mOriginAuthor);
         mCreateTime = entity.getCreateTime();
-        mCreateTime = mCreateTime.substring(5,11);
+        mCreateTime = mCreateTime.substring(5, 11);
         tvCreateDate.setText(mCreateTime);
     }
 
-    public ArrayList<ParagraphEntity> getData(){
+    public ArrayList<ParagraphEntity> getData() {
         return list;
     }
 
@@ -146,9 +155,11 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         public Object instantiateItem(ViewGroup container, int position) {
             View child = null;
             if (mImageOrientation == LinearLayout.VERTICAL) {
-                child = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_item_mulit_version_horizontal, container, false);
+                child = LayoutInflater.from(container.getContext())
+                        .inflate(R.layout.layout_item_mulit_version_horizontal, container, false);
             } else {
-                child = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_item_mulit_version_vertical, container, false);
+                child = LayoutInflater.from(container.getContext())
+                        .inflate(R.layout.layout_item_mulit_version_vertical, container, false);
             }
             String paragraphContent = mList.get(position).getParagraphContent();
             String[] desContent = getDesContent(paragraphContent);
@@ -195,4 +206,16 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         return bitmap;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    protected void onClickAddComment(ParagraphEntity entity) {
+        Intent intent = new Intent();
+        intent.setClass(context, ContrastCommentActivity.class);
+        intent.putExtra("paragraph", entity);
+        intent.putExtra("hasFocus", true);
+        mBaseActivity
+                .startActivityForResult(intent, WoLaiContrastDetailActivity.REQUEST_ADD_COMMENT);
+    }
+>>>>>>> origin/master
 }
