@@ -206,8 +206,8 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         return bitmap;
     }
 
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
     @Override
     protected void onClickAddComment(ParagraphEntity entity) {
         Intent intent = new Intent();
@@ -217,5 +217,5 @@ public class WoLaiContrastListAdapter extends ContrastListAdapter {
         mBaseActivity
                 .startActivityForResult(intent, WoLaiContrastDetailActivity.REQUEST_ADD_COMMENT);
     }
->>>>>>> origin/master
+//>>>>>>> origin/master
 }
